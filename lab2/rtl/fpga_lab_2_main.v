@@ -62,12 +62,12 @@ always @( * )
   begin
     if ( anode_counter )
       begin
-        hex_on_o <= 2'b01;
+        hex_on_o <= 2'b10;
         hex_reg <= counter[7:4];
       end
     else
       begin
-        hex_on_o <= 2'b10;
+        hex_on_o <= 2'b01;
         hex_reg <= counter[3:0];
       end
   end

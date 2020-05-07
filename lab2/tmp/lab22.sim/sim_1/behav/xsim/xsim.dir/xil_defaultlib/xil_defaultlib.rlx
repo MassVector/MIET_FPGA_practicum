@@ -1,0 +1,8 @@
+0.6
+2019.2
+Nov  6 2019
+21:57:16
+A:/github/lab22/rtl/decoder.v,1588885604,verilog,,A:/github/lab22/rtl/dff.v,,decoder,,,,,,,,
+A:/github/lab22/rtl/dff.v,1588886291,verilog,,A:/github/lab22/tb/dff_tb.v,,dff,,,,,,,,
+A:/github/lab22/tb/dff_tb.v,1588886219,verilog,,,,dff_tb,,,,,,,,
+A:/github/lab22/tmp/lab22.sim/sim_1/behav/xsim/glbl.v,1573089660,verilog,,,,glbl,,,,,,,,

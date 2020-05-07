@@ -1,0 +1,13 @@
+0.6
+2019.2
+Nov  6 2019
+21:57:16
+A:/github/lab2/tmp/lab2.sim/sim_1/behav/xsim/glbl.v,1573089660,verilog,,,,glbl,,,,,,,,
+C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/Counter_8.v,1588349524,verilog,,C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/KEY_Debounce.v,,Counter_8,,,,,,,,
+C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/KEY_Debounce.v,1585480075,verilog,,C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/KEY_Pressing.v,,KEY_Debounce,,,,,,,,
+C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/KEY_Pressing.v,1588349981,verilog,,C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/KEY_Switching.v,,KEY_Pressing,,,,,,,,
+C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/KEY_Switching.v,1588348971,verilog,,C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/REG_Event.v,,KEY_Switching,,,,,,,,
+C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/REG_Event.v,1588357840,verilog,,C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/Register_10.v,,REG_Event,,,,,,,,
+C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/Register_10.v,1588349293,verilog,,C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/mainframe.v,,Register_10,,,,,,,,
+C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/rtl/mainframe.v,1588347480,verilog,,C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/tb/test_clk_tb.v,,mainframe,,,,,,,,
+C:/Users/Никита/OneDrive/Рабочий стол/Lab_2/tb/test_clk_tb.v,1585498624,verilog,,,,test_clk_tb,,,,,,,,

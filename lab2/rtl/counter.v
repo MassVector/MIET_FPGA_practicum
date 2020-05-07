@@ -1,13 +1,22 @@
-module counter(
-    input clk100_i,
-    input rstn_i,
-    input [9:0] sw_i,
-    input [1:0] key_i,
-    output [9:0] ledr_o,
-    output [6:0] hex1_o,
-    output [6:0] hex0_o
+`timescale 1ns / 1ps
+
+module counter #(
+parameter DATA_WIDTH = 8
+)
+(
+  input  clk_i,       
+  input  en_i,        
+  input  arst_i,
+  
+  output [DATA_WIDTH - 1:0] data_o  
 );
+reg [DATA_WIDTH-1:0] data;
 
+always @( posedge clk_i or posedge arst_i ) begin
+  if ( arst_i ) data <= { DATA_WIDTH { 1'b0 } };
+  else if ( en_i ) data <= data + 1;
+end
 
+assign data_o = data;
 
 endmodule

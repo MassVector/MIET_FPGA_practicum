@@ -38,23 +38,23 @@ end
 
 // rst gen
 initial begin
-  rstn = 1;
+  rstn = 1'b1;
   #( 4*CLK_SEMIPERIOD );
-  rstn = 0;
+  rstn = 1'b0;
   #( 4*CLK_SEMIPERIOD );
-  rstn = 1;
+  rstn = 1'b1;
 end
 
 initial begin
   sw  = 10'b0;
-  key = 0;
+  key = 1'b0;
     repeat( 40 )begin
       #( 6*CLK_SEMIPERIOD );
       sw[9:0] = $random();
       #( 3*CLK_SEMIPERIOD );
-      key = 1;
+      key = 1'b1;
       #( 3*CLK_SEMIPERIOD );
-      key = 0;
+      key = 1'b0;
   end
 end    
 

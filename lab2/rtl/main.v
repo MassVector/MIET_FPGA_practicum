@@ -9,7 +9,10 @@ module main(
   output reg [6:0] hex1_o,
   output reg [6:0] hex0_o
 );
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 wire [7:0] data_count;
 wire [9:0] data_reg;
 counter u1(
@@ -29,6 +32,7 @@ register u2(
 
 always @(posedge clk50_i) begin
   case (data_count[7:4])
+<<<<<<< Updated upstream
     4'd0  : hex1_o = 7'b100_0000;
     4'd1  : hex1_o = 7'b111_1001;
     4'd2  : hex1_o = 7'b010_0100;
@@ -39,6 +43,18 @@ always @(posedge clk50_i) begin
     4'd7  : hex1_o = 7'b111_1000;
     4'd8  : hex1_o = 7'b000_0000;
     4'd9  : hex1_o = 7'b001_0000;
+=======
+    4'd0 : hex1_o = 7'b100_0000;
+    4'd1 : hex1_o = 7'b111_1001;
+    4'd2 : hex1_o = 7'b010_0100;
+    4'd3 : hex1_o = 7'b011_0000;
+    4'd4 : hex1_o = 7'b001_1001;
+    4'd5 : hex1_o = 7'b001_0010;
+    4'd6 : hex1_o = 7'b000_0010;
+    4'd7 : hex1_o = 7'b111_1000;
+    4'd8 : hex1_o = 7'b000_0000;
+    4'd9 : hex1_o = 7'b001_0000;
+>>>>>>> Stashed changes
     4'd10 : hex1_o = 7'b000_1000;
     4'd11 : hex1_o = 7'b000_0011;
     4'd12 : hex1_o = 7'b100_0110;
@@ -47,6 +63,7 @@ always @(posedge clk50_i) begin
     4'd15 : hex1_o = 7'b000_1110;
           endcase
     case (data_count[3:0])
+<<<<<<< Updated upstream
     4'd0  : hex0_o = 7'b100_0000;
     4'd1  : hex0_o = 7'b111_1001;
     4'd2  : hex0_o = 7'b010_0100;
@@ -57,6 +74,18 @@ always @(posedge clk50_i) begin
     4'd7  : hex0_o = 7'b111_1000;
     4'd8  : hex0_o = 7'b000_0000;
     4'd9  : hex0_o = 7'b001_0000;
+=======
+    4'd0 : hex0_o = 7'b100_0000;
+    4'd1 : hex0_o = 7'b111_1001;
+    4'd2 : hex0_o = 7'b010_0100;
+    4'd3 : hex0_o = 7'b011_0000;
+    4'd4 : hex0_o = 7'b001_1001;
+    4'd5 : hex0_o = 7'b001_0010;
+    4'd6 : hex0_o = 7'b000_0010;
+    4'd7 : hex0_o = 7'b111_1000;
+    4'd8 : hex0_o = 7'b000_0000;
+    4'd9 : hex0_o = 7'b001_0000;
+>>>>>>> Stashed changes
     4'd10 : hex0_o = 7'b000_1000;
     4'd11 : hex0_o = 7'b000_0011;
     4'd12 : hex0_o = 7'b100_0110;

@@ -12,7 +12,11 @@ parameter DATA_WIDTH = 8
 );
 reg [DATA_WIDTH-1:0] data;
 
+<<<<<<< Updated upstream
 always @( posedge clk_i or posedge arst_i ) begin
+=======
+always @(posedge clk_i or posedge arst_i) begin
+>>>>>>> Stashed changes
   if ( arst_i ) data <= { DATA_WIDTH { 1'b0 } };
   else if ( en_i ) data <= data + 1;
 end

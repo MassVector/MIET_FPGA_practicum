@@ -11,9 +11,8 @@ module main(
   output  reg  [1:0]  hex_on_o
     );       
 
-//описание сихронизации кнопки
-reg [2:0] button_sync;
-wire key_pressed_true;
+reg  [2:0]     button_sync;
+wire      key_pressed_true;
 
 always @( posedge clk_i ) 
   begin
@@ -26,7 +25,7 @@ assign key_pressed_true = ~button_sync[2] & button_sync[1];
 
 reg [9:0] reg_mass;
 
-assign led_o = reg_mass;
+assign    led_o = reg_mass;
 
 always @( posedge clk_i or posedge rstn_i ) 
   begin

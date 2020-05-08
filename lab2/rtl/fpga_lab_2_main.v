@@ -28,19 +28,22 @@ assign key_was_pressed = ~button_syncroniser[2]
 // led register logic
 reg [9:0] register;
 assign led_o = register;
-always @( posedge clk_i or posedge rstn_i ) 
+    always @( posedge clk_i or negedge rstn_i ) 
   begin
-    if ( rstn_i == 1'b0 ) register <= 10'd0;
-    else if ( key_was_pressed ) register <= sw_i;
+    if ( ~rstn_i ) 
+      register <= 10'd0;
+    else if ( key_was_pressed ) 
+      register <= sw_i;
   end
 
 // hex counter logic
 reg [7:0] counter;
-always @( posedge clk_i or posedge rstn_i ) 
+    always @( posedge clk_i or negedge rstn_i ) 
   begin
-    if ( rstn_i == 0 ) counter <= 8'd0;
+    if ( ~rstn_i ) 
+      counter <= 8'd0;
     else if ( key_was_pressed && ( sw_i > 10'd500 ) )
-        counter = counter + 1;
+      counter = counter + 1;
   end
 
 reg [3:0] hex_reg;
@@ -51,9 +54,9 @@ hex_decoder dec (
 
 // hex display switcher 
 reg anode_counter;
-always @( posedge clk_i or posedge rstn_i )
+    always @( posedge clk_i or negedge rstn_i )
   begin
-    if ( rstn_i == 0 ) 
+    if ( ~rstn_i ) 
       anode_counter <= 1'b0;
     else
       anode_counter <= anode_counter + 1'b1;
@@ -62,13 +65,13 @@ always @( * )
   begin
     if ( anode_counter )
       begin
-        hex_on_o <= 2'b10;
-        hex_reg <= counter[7:4];
+        hex_on_o = 2'b10;
+        hex_reg = counter[7:4];
       end
     else
       begin
-        hex_on_o <= 2'b01;
-        hex_reg <= counter[3:0];
+        hex_on_o = 2'b01;
+        hex_reg = counter[3:0];
       end
   end
 

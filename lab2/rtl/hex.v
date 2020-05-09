@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module hex(
-  input     [3:0] hex_i,
+  input      [3:0] hex_i,
   output reg [6:0] hex_o
     );
     

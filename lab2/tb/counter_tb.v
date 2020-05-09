@@ -28,6 +28,7 @@ assign key_i = btn;
 initial begin
   #100 btn[1]=1'b0;
   #100;
+  #100 btn[1]=1'b1;
   #100 btn[0]=1'b0;
   #100 btn[0]=1'b1;
   #100 btn[0]=1'b0;
@@ -41,7 +42,7 @@ initial begin
 end
 
 initial begin
-    sw_i[9:0] = 10'b0000000000;
+    sw_i[9:0] = 10'b0;
     repeat(20)begin
         #(CLK_SEMIPERIOD - 1);
         sw_i[9:0] = $random();

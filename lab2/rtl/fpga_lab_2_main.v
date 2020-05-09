@@ -8,8 +8,8 @@ module fpga_lab_2_main(
     input            key_i,
     
     output     [9:0] led_o,
-    output     [6:0] hex_o,
-    output reg [1:0] hex_on_o
+    output     [6:0] hex1_o,
+    output     [6:0] hex0_o
     );
     
 // synchronize key press
@@ -46,33 +46,14 @@ reg [7:0] counter;
       counter = counter + 1;
   end
 
-reg [3:0] hex_reg;
-hex_decoder dec ( 
-  .data_i( hex_reg ),
-  .data_o( hex_o )
+hex_decoder dec1 ( 
+  .data_i( counter[7:4] ),
+  .data_o( hex1_o       )
   );
-
-// hex display switcher 
-reg anode_counter;
-    always @( posedge clk_i or negedge rstn_i )
-  begin
-    if ( ~rstn_i ) 
-      anode_counter <= 1'b0;
-    else
-      anode_counter <= anode_counter + 1'b1;
-  end
-always @( * ) 
-  begin
-    if ( anode_counter )
-      begin
-        hex_on_o = 2'b10;
-        hex_reg = counter[7:4];
-      end
-    else
-      begin
-        hex_on_o = 2'b01;
-        hex_reg = counter[3:0];
-      end
-  end
+  
+hex_decoder dec0 ( 
+  .data_i( counter[3:0] ),
+  .data_o( hex0_o       )
+  );
 
 endmodule

@@ -12,20 +12,20 @@ reg   [9:0] sw;
 reg         key;
     
 wire  [9:0] led;
-wire  [6:0] hex;
-wire  [1:0] hex_on;
+wire  [6:0] hex1;
+wire  [6:0] hex0;
 
 
 fpga_lab_2_main DUT (
-  .clk_i    ( clk    ),
-  .rstn_i   ( rstn   ),
+  .clk_i    ( clk  ),
+  .rstn_i   ( rstn ),
   
-  .sw_i     ( sw     ),
-  .key_i    ( key    ),
+  .sw_i     ( sw   ),
+  .key_i    ( key  ),
   
-  .led_o    ( led    ),
-  .hex_o    ( hex    ),
-  .hex_on_o ( hex_on )
+  .led_o    ( led  ),
+  .hex1_o   ( hex1 ),
+  .hex0_o   ( hex0 )
 );
 
 // clock gen
@@ -38,23 +38,23 @@ end
 
 // rst gen
 initial begin
-  rstn = 1'b1;
-  #( 4*CLK_SEMIPERIOD );
-  rstn = 1'b0;
-  #( 4*CLK_SEMIPERIOD );
-  rstn = 1'b1;
+  rstn = 1;
+  #(4*CLK_SEMIPERIOD);
+  rstn = 0;
+  #(4*CLK_SEMIPERIOD);
+  rstn = 1;
 end
 
 initial begin
   sw  = 10'b0;
-  key = 1'b0;
-    repeat( 40 )begin
-      #( 6*CLK_SEMIPERIOD );
+  key = 0;
+  repeat(40)begin
+      #(6*CLK_SEMIPERIOD);
       sw[9:0] = $random();
-      #( 3*CLK_SEMIPERIOD );
-      key = 1'b1;
-      #( 3*CLK_SEMIPERIOD );
-      key = 1'b0;
+      #(3*CLK_SEMIPERIOD);
+      key = 1;
+      #(3*CLK_SEMIPERIOD);
+      key = 0;
   end
 end    
 

@@ -1,6 +1,5 @@
 `timescale 1ns / 1ps
 module counter_tb(
-
 );
 
 localparam CLK_FREQ_MHZ   = 50;
@@ -13,6 +12,8 @@ wire [1:0]   key_i;
 wire [6:0]   hex1_o;
 wire [6:0]   hex0_o;
 
+reg  [1:0] btn = 2'b11;
+
 counter TEST (
     .sw_i     ( sw_i     ),
     .ledr_o   ( ledr_o   ),
@@ -22,8 +23,15 @@ counter TEST (
     .hex0_o   ( hex0_o   )
 );
 
-assign key_i[1] = 0; 
-assign key_i[0] = 1; 
+assign key_i = btn;
+
+initial begin
+  #100 btn[1]=1'b0;
+  #100;
+  #100 btn[0]=1'b0;
+  #100 btn[0]=1'b1;
+  #100 btn[0]=1'b0;
+end
 
 initial begin
     clk100_i = 1'b1;

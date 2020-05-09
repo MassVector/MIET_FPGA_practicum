@@ -1,13 +1,11 @@
-`timescale 1ns / 1ps
-
-module fpga_lab_2_main(
+module counter(
     input            clk_i,
     input            rstn_i,
     
     input      [9:0] sw_i,
-    input            key_i,
+    input      [1:0] key_i,
     
-    output     [9:0] led_o,
+    output     [9:0] ledr_o,
     output     [6:0] hex1_o,
     output     [6:0] hex0_o
     );
@@ -18,7 +16,7 @@ wire key_was_pressed;
 
 always @( posedge clk_i ) 
   begin
-    button_syncroniser[0] <= key_i;
+    button_syncroniser[0] <= key_i[0];
     button_syncroniser[1] <= button_syncroniser[0];
     button_syncroniser[2] <= button_syncroniser[1];
   end
@@ -27,8 +25,8 @@ assign key_was_pressed = ~button_syncroniser[2]
 
 // led register logic
 reg [9:0] register;
-assign led_o = register;
-    always @( posedge clk_i or negedge rstn_i ) 
+assign ledr_o = register;
+always @( posedge clk_i or negedge rstn_i ) 
   begin
     if ( ~rstn_i ) 
       register <= 10'd0;
@@ -38,7 +36,7 @@ assign led_o = register;
 
 // hex counter logic
 reg [7:0] counter;
-    always @( posedge clk_i or negedge rstn_i ) 
+always @( posedge clk_i or negedge rstn_i ) 
   begin
     if ( ~rstn_i ) 
       counter <= 8'd0;

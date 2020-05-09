@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module fpga_lab_2_main_tb();
+module counter_tb();
 
 localparam CLK_FREQ_MHZ   = 50;
 localparam CLK_SEMIPERIOD = ( 1000 / CLK_FREQ_MHZ) / 2;   
@@ -9,14 +9,14 @@ reg         clk;
 reg         rstn;
     
 reg   [9:0] sw;
-reg         key;
+reg   [1:0] key;
     
 wire  [9:0] led;
 wire  [6:0] hex1;
 wire  [6:0] hex0;
 
 
-fpga_lab_2_main DUT (
+counter DUT (
   .clk_i    ( clk  ),
   .rstn_i   ( rstn ),
   
@@ -52,9 +52,9 @@ initial begin
       #(6*CLK_SEMIPERIOD);
       sw[9:0] = $random();
       #(3*CLK_SEMIPERIOD);
-      key = 1;
+      key[0] = 1;
       #(3*CLK_SEMIPERIOD);
-      key = 0;
+      key[0] = 0;
   end
 end    
 

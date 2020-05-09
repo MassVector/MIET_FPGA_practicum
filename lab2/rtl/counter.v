@@ -9,8 +9,8 @@ module counter(
     output [6:0] hex1_o,
     output [6:0] hex0_o);
 
-reg  [7:0] counter = 8'd0 ;
-reg  [9:0] q       = 10'b0;
+reg  [7:0] counter;
+reg  [9:0] q;
 
 wire [1:0] bt_down;
 
@@ -28,13 +28,13 @@ button_debounce bt1(
 always @( posedge clk100_i or posedge bt_down[1] )
   begin
     if  ( bt_down[1] ) begin
-        q = 10'b0;
-        counter = 8'd0;
+        q       <= 10'b0;
+        counter <= 8'd0;
     end
     else
       if ( bt_down[0] ) begin
-         q       = sw_i;
-         counter = counter +1;
+         q       <= sw_i;
+         counter <= counter +1;
       end
   end
 

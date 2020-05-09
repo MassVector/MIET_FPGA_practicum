@@ -20,17 +20,19 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module register(
-    input      [9:0] d_i,             
-    input            clk50_i,           
-    input            arst_i,           
-    input            en_i,            
-    output reg [9:0] register_o       
-    );
+  input      [9:0] d_i,             
+  input            clk50_i,           
+  input            arst_i,           
+  input            en_i,            
+  output reg [9:0] register_o       
+  );
   
 
-  always @(posedge clk50_i or posedge arst_i) begin
-      if (arst_i) register_o <= 0;
-      else if (en_i) register_o <= d_i;
+  always @(posedge clk50_i or negedge arst_i) begin
+    if ( ~arst_i ) 
+      register_o <= 0;
+    else if ( en_i )
+     register_o <= d_i;
   end 
   
 endmodule

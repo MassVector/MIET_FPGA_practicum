@@ -26,16 +26,16 @@ module main_tb(
   reg  [9:0] sw_i;
   reg  [1:0] key_i;
   wire [9:0] ledr_o;
-  wire [6:0]  hex_o;
-  wire [7:0]  hex_on;
+  wire [6:0]  hex1_o;
+  wire [6:0]  hex0_on;
     
   main DUT (
   .clk50_i  (clk50_i),
   .sw_i     (sw_i),
   .key_i    (key_i),
   .ledr_o   (ledr_o),
-  .hex_o    (hex_o),
-  .hex_on   (hex_on)
+  .hex1_o    (hex_o),
+  .hex0_o   (hex_on)
   );
 
  initial begin

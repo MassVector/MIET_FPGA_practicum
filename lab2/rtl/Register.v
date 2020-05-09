@@ -11,10 +11,8 @@ module Register(
   
   reg [9:0] data;
   reg [2:0] btn_sync; 
-  wire      rst_i;
   wire      btn_was_pressed;
   
-  assign rst_i = ~rstn_i;
 
   always @( posedge clk_i ) begin
     btn_sync[0] <= en_i;
@@ -24,7 +22,7 @@ module Register(
 
   assign btn_was_pressed = ~btn_sync[2] & btn_sync[1];
   
-  always @( posedge clk_i or posedge rst_i ) begin
+  always @( posedge clk_i or negedge rstn_i ) begin
     if ( !rstn_i ) 
       data <= 0;
     else if ( en_i ) 

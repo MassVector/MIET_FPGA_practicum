@@ -10,10 +10,7 @@ module counter(
   );
 
   reg  sw_event;
-  wire rst_i;
-  
-  assign rst_i = ~rstn_i;
-  
+ 
   always @( sw_i ) begin
     if ( ( sw_i[0] + sw_i[1] + sw_i[2] + sw_i[3] 
          + sw_i[4] + sw_i[5] + sw_i[6] + sw_i[7] 
@@ -34,7 +31,7 @@ module counter(
   assign btn_was_pressed = ~btn_sync[2] & btn_sync[1];
 
 
-  always@( posedge clk_i or posedge rst_i )begin
+  always @( posedge clk_i or negedge rstn_i )begin
     if( !rstn_i ) counter_o <= 0;
     else if( btn_was_pressed & sw_event) counter_o <= counter_o + 1;
   end

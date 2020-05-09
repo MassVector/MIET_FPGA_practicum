@@ -23,7 +23,7 @@ counter DUT (
   .sw_i     ( sw   ),
   .key_i    ( key  ),
   
-  .led_o    ( led  ),
+  .ledr_o    ( led  ),
   .hex1_o   ( hex1 ),
   .hex0_o   ( hex0 )
 );

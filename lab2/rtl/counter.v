@@ -25,18 +25,17 @@ button_debounce bt1(
   .clk_i   ( clk100_i   )
 );
 
-always @( posedge clk100_i or posedge bt_down[1] )
-  begin
-    if  ( bt_down[1] ) begin
-        q       <= 10'b0;
-        counter <= 8'd0;
-    end
-    else
-      if ( bt_down[0] ) begin
-         q       <= sw_i;
-         counter <= counter +1;
-      end
+always @( posedge clk100_i or posedge bt_down[1] ) begin
+  if( bt_down[1] ) begin
+    q       <= 10'b0;
+    counter <= 8'd0;
   end
+  else
+    if( bt_down[0] ) begin
+      q       <= sw_i;
+      counter <= counter +1;
+    end
+end
 
 assign ledr_o = q;
 

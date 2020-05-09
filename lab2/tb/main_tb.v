@@ -6,13 +6,13 @@ module main_tb(
   localparam CLK_FREQ_MHZ   = 100;
   localparam CLK_SEMIPERIOD = ( 1000 / CLK_FREQ_MHZ) / 2; 
     
-  reg clk_i;
-  reg btn_i;
-  reg rstn_i;
-  reg [9:0] sw;
+  reg        clk_i;
+  reg        btn_i;
+  reg        rstn_i;
+  reg  [9:0] sw;
   wire [9:0] led_o;
-  wire [6:0] hex;
-  wire [1:0] hex_on;
+  wire [6:0] hex0_o;
+  wire [6:0] hex1_o;
   
   main DUT
   ( 
@@ -21,8 +21,8 @@ module main_tb(
     .led_o(led_o[9:0]),
     .btn_i(btn_i),
     .rstn_i(rstn_i),
-    .hex(hex[6:0]),
-    .hex_on(hex_on[1:0])
+    .hex0_o(hex0_o[6:0]),
+    .hex1_o(hex1_o[6:0])
   );
   
   initial begin

@@ -32,8 +32,8 @@ wire [9:0]   led_o;
 reg          btn_i;
 reg          rstn_i;
 reg          clk50_i;
-wire [6:0]   hex_o;
-wire [1:0]   hex_on_o;
+wire [6:0]   hex0_o;
+wire [6:0]   hex1_o;
 
 main DUT (
  .sw_i       (  sw_i     ),
@@ -41,8 +41,8 @@ main DUT (
  .clk50_i    (  clk50_i  ),
  .btn_i      (  btn_i    ),
  .rstn_i     (  rstn_i   ),
- .hex_o      (  hex_o    ),
- .hex_on_o   (  hex_on_o )
+ .hex0_o     (  hex0_o   ),
+ .hex1_o     (  hex1_o   )
 );
 
 initial begin

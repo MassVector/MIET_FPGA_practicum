@@ -1,28 +1,28 @@
 `timescale 1ns / 1ps
-module main_tb(
+module counter_tb(
 
     );
     
   localparam CLK_FREQ_MHZ   = 100;
   localparam CLK_SEMIPERIOD = ( 1000 / CLK_FREQ_MHZ) / 2; 
     
-  reg        clk_i;
-  reg        btn_i;
+  reg        clk100_i;
   reg        rstn_i;
-  reg  [9:0] sw;
-  wire [9:0] led_o;
+  reg  [1:0] key_i;
+  reg  [9:0] sw_i;
+  wire [9:0] ledr_o;
   wire [6:0] hex0_o;
   wire [6:0] hex1_o;
   
-  main DUT
+  counter DUT
   ( 
-    .clk_i(clk_i),
-    .sw(sw[9:0]),
-    .led_o(led_o[9:0]),
-    .btn_i(btn_i),
-    .rstn_i(rstn_i),
-    .hex0_o(hex0_o[6:0]),
-    .hex1_o(hex1_o[6:0])
+    .clk100_i(clk100_i),
+    .sw_i    (sw_i[9:0]),
+    .ledr_o  (ledr_o[9:0]),
+    .key_i   (key_i),
+    .rstn_i  (rstn_i),
+    .hex0_o  (hex0_o[6:0]),
+    .hex1_o  (hex1_o[6:0])
   );
   
   initial begin
@@ -30,22 +30,22 @@ module main_tb(
   end
   
   initial begin
-    clk_i = 1'b1;
+    clk100_i = 1'b1;
     forever begin
-        #CLK_SEMIPERIOD clk_i=~clk_i;
+        #CLK_SEMIPERIOD clk100_i=~clk100_i;
     end
   end
   
   initial begin
-    sw  [9:0] = 10'b0;
-    btn_i     = 1'b0;
+    sw_i [9:0] = 10'b0;
+    key_i[0]   = 1'b0;
     repeat(40)begin
         #(CLK_SEMIPERIOD - 1);
-        sw[9:0] = $random();
+        sw_i[9:0] = $random();
         #(5*CLK_SEMIPERIOD);
-        btn_i = 1'b1;
+        key_i[0] = 1'b1;
         #(10*CLK_SEMIPERIOD);
-        btn_i = 1'b0;
+        key_i[0] = 1'b0;
     end
   end
   

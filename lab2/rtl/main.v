@@ -38,7 +38,7 @@ always @( posedge clk50_i or negedge arstn_i )
     if ( !arstn_i )
       button_syncroniser    <= 3'b0;
     else
-      button_syncroniser[0] <= btn_i;
+      button_syncroniser[0] <= ~btn_i;
       button_syncroniser[1] <= button_syncroniser[0];
       button_syncroniser[2] <= button_syncroniser[1];
   end
@@ -62,7 +62,7 @@ always @( posedge clk50_i or negedge arstn_i )
   begin
     if ( !arstn_i ) 
       counter <= 8'd0;
-    else if ( key_was_pressed && ( sw_i > 10'd20 ) ) // äëÿ ïðèìåðà ñîáûòèå ÿâëÿåòñÿ íà sw_i ÷èñëî áîëüøå 20
+    else if ( key_was_pressed && ( sw_i > 10'd20 ) ) // Ã¤Ã«Ã¿ Ã¯Ã°Ã¨Ã¬Ã¥Ã°Ã  Ã±Ã®Ã¡Ã»Ã²Ã¨Ã¥ Ã¿Ã¢Ã«Ã¿Ã¥Ã²Ã±Ã¿ Ã­Ã  sw_i Ã·Ã¨Ã±Ã«Ã® Ã¡Ã®Ã«Ã¼Ã¸Ã¥ 20
       counter = counter + 1;
   end
   

@@ -9,24 +9,30 @@ module counter(
   output [6:0] hex0_o
 );
 reg [9:0] ledr    = 10'b0;
-reg [7:0] counter =  8'd0;
+reg [7:0] count   =  8'd0;
+wire      btn_pr;
+button btn1
+( .in ( key_i[0] ),
+  .clk ( clk100_i ),
+  .button_was_pressed ( btn_pr )
+);
 always @( posedge clk100_i or negedge key_i[1] ) begin
-  if ( key_i[1] ) begin
-    ledr    <=  10'b0;
-    counter <=  8'd0;
-  end  
+  if ( !key_i[1] ) begin
+    ledr  <=  10'b0;
+    count <=  8'd0;
+  end
   else
-   if ( key_i[0] ) begin
-     ledr    <= sw_i;
-     counter <= counter + 1;
-   end 
+    if ( btn_pr ) begin
+      ledr  <= sw_i;
+      count <= count + 1;
+    end 
 end
 
-assign ledr_o = counter;
+assign ledr_o = count;
 hex dec0
-( .in ( counter[7:4] ),
+( .in ( count[7:4] ),
   .out ( hex0_o ) );
 hex dec1
-( .in ( counter[3:0] ),
+( .in ( count[3:0] ),
   .out ( hex1_o ) );
 endmodule

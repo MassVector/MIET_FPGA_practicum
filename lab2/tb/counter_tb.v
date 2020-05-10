@@ -19,7 +19,6 @@ counter DUT (
   .hex0_o   ( hex0_o ),
   .hex1_o   ( hex1_o )   
 );
-
 initial begin
   key_i[1] = 1'b0;
   forever begin

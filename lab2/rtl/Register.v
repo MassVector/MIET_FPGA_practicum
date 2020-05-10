@@ -1,17 +1,17 @@
 `timescale 1ns / 1ps
 
-module Register(
+module register(
   input   [9:0]  data_i,             
   input          clk_i,           
   input          rstn_i,           
-  input          en_i,            
+  input          en_i,
+  input          btn_was_pressed,  
     
   output  [9:0]  register_o       
   );
   
   reg [9:0] data;
   reg [2:0] btn_sync;
-  wire      btn_was_pressed;
   
   always @( posedge clk_i or negedge rstn_i ) begin
     if ( !rstn_i )

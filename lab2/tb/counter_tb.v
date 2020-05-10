@@ -17,13 +17,13 @@ wire  [6:0] hex0;
 
 
 counter DUT (
-  .clk_i    ( clk  ),
+  .clk100_i ( clk  ),
   .rstn_i   ( rstn ),
   
   .sw_i     ( sw   ),
   .key_i    ( key  ),
   
-  .ledr_o    ( led  ),
+  .ledr_o   ( led  ),
   .hex1_o   ( hex1 ),
   .hex0_o   ( hex0 )
 );
@@ -47,14 +47,14 @@ end
 
 initial begin
   sw  = 10'b0;
-  key = 0;
+  key[0] = 1;
   repeat(40)begin
       #(6*CLK_SEMIPERIOD);
       sw[9:0] = $random();
       #(3*CLK_SEMIPERIOD);
-      key[0] = 1;
-      #(3*CLK_SEMIPERIOD);
       key[0] = 0;
+      #(3*CLK_SEMIPERIOD);
+      key[0] = 1;
   end
 end    
 

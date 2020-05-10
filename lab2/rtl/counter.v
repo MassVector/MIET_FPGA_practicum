@@ -1,5 +1,5 @@
 module counter(
-    input            clk_i,
+    input            clk100_i,
     input            rstn_i,
     
     input      [9:0] sw_i,
@@ -14,9 +14,9 @@ module counter(
 reg [2:0] button_syncroniser;
 wire key_was_pressed;
 
-always @( posedge clk_i ) 
+always @( posedge clk100_i ) 
   begin
-    button_syncroniser[0] <= key_i[0];
+    button_syncroniser[0] <= ~key_i[0];
     button_syncroniser[1] <= button_syncroniser[0];
     button_syncroniser[2] <= button_syncroniser[1];
   end
@@ -26,7 +26,7 @@ assign key_was_pressed = ~button_syncroniser[2]
 // led register logic
 reg [9:0] register;
 assign ledr_o = register;
-always @( posedge clk_i or negedge rstn_i ) 
+always @( posedge clk100_i or negedge rstn_i ) 
   begin
     if ( ~rstn_i ) 
       register <= 10'd0;
@@ -35,22 +35,22 @@ always @( posedge clk_i or negedge rstn_i )
   end
 
 // hex counter logic
-reg [7:0] counter;
-always @( posedge clk_i or negedge rstn_i ) 
+reg [7:0] hex_counter;
+always @( posedge clk100_i or negedge rstn_i ) 
   begin
     if ( ~rstn_i ) 
-      counter <= 8'd0;
+      hex_counter <= 8'd0;
     else if ( key_was_pressed && ( sw_i > 10'd500 ) )
-      counter = counter + 1;
+      hex_counter = hex_counter + 1;
   end
 
 hex_decoder dec1 ( 
-  .data_i( counter[7:4] ),
+  .data_i( hex_counter[7:4] ),
   .data_o( hex1_o       )
   );
   
 hex_decoder dec0 ( 
-  .data_i( counter[3:0] ),
+  .data_i( hex_counter[3:0] ),
   .data_o( hex0_o       )
   );
 

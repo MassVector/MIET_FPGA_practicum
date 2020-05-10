@@ -6,7 +6,7 @@ module counter_tb(
     
     localparam CLK_SEMIPERIOD = 5;
     
-    reg        clk_i;
+    reg        clk100_i;
     reg  [9:0] sw_i;
     wire [1:0] key_i;
     wire [9:0] ledr_o;
@@ -14,12 +14,12 @@ module counter_tb(
     wire [6:0] hex1_o;
     
     counter DUT( 
-       .sw_i   (sw_i),
-       .clk_i  (clk_i),
-       .key_i  (key_i),
-       .ledr_o (ledr_o),
-       .hex0_o (hex0_o),
-       .hex1_o (hex1_o)
+       .sw_i     (sw_i),
+       .clk100_i (clk100_i),
+       .key_i    (key_i),
+       .ledr_o   (ledr_o),
+       .hex0_o   (hex0_o),
+       .hex1_o   (hex1_o)
     );
     
     assign key_i[1] = 0;
@@ -29,9 +29,9 @@ module counter_tb(
     //assign key_i[0]=0;
     
     initial begin
-       clk_i = 1'b1;
+       clk100_i = 1'b1;
        forever begin
-       #CLK_SEMIPERIOD clk_i=~clk_i;
+       #CLK_SEMIPERIOD clk100_i=~clk100_i;
        end
     end
     

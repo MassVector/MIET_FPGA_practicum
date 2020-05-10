@@ -25,7 +25,10 @@ module top_device_tb(
   //CLK gen
     initial begin 
       clk=1'b0;
-      forever #CLK_SEMIPERIOD clk=~clk;
+      forever begin
+        #CLK_SEMIPERIOD 
+        clk=~clk;
+      end
     end
   
   //RST gen
@@ -41,15 +44,19 @@ module top_device_tb(
     
   //EN gen
     initial begin
-      btn[0] = 1'b0;
-      forever #(1.5*CLK_SEMIPERIOD)
-      btn[0] <= $random();
+      btn[0] = 1'b1;
+      repeat(10) begin
+        #(1.5*CLK_SEMIPERIOD)
+        btn[0] = ~btn[0];
+      end
     end
   
   //SW gen
     initial begin
-      forever #(3*CLK_SEMIPERIOD)
-        sw [9:0] <= $random();
+     repeat(10) begin
+        #(5*CLK_FREQ_MHZ);
+        sw[9:0]=$random();
+      end
     end
      
 endmodule

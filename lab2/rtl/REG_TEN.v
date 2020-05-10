@@ -4,19 +4,22 @@ module REG_TEN#(
   parameter DATA_WIDTH = 10
   )
   (
-  input                         clk_i,
-  input                         arstn_i,
+  input                         clk100_i,
+  input                         rstn_i,
   
-  input       [DATA_WIDTH-1:0]  sw,
-  input                         key,
+  input       [DATA_WIDTH-1:0]  sw_i,
+  input                         key_i,
   
-  output  reg [DATA_WIDTH-1:0]  led
+  output  reg [DATA_WIDTH-1:0]  led_o
   );
   
   
-   always @( posedge clk_i or negedge arstn_i ) begin
-   if (!arstn_i) led[DATA_WIDTH-1:0]  <=  {DATA_WIDTH{1'b0}};
-   else if (key) led[DATA_WIDTH-1:0]  <=  sw[DATA_WIDTH-1:0];
+always @( posedge clk100_i or negedge rstn_i ) begin
+  if ( !rstn_i )
+    led_o[DATA_WIDTH-1:0] <= {DATA_WIDTH{1'b0}};
+  else 
+      if ( key_i )
+        led_o[DATA_WIDTH-1:0] <= sw_i[DATA_WIDTH-1:0];
   end
   
 endmodule

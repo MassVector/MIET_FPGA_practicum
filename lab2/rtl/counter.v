@@ -2,28 +2,52 @@
 module counter#(
   parameter DATA_WIDTH = 8
   )
-  (
-  input                       clk_i,
-  input                       arstn_i,
-  
-  input      [9:0]            sw,
-  input                       key,
-  
-  output reg [DATA_WIDTH-1:0] counter
+ (
+  input        clk100_i,
+  input        rstn_i,
+  input  [9:0] sw_i,
+  input  [1:0] key_i,
+  output [9:0] ledr_o,
+  output [6:0] hex1_o,
+  output [6:0] hex0_o
   );
   
-  reg sw_event;
+  reg       sw_event;
+  wire      key;
+  reg [7:0] counter_i;
   
-  always @( posedge clk_i or negedge arstn_i ) begin
-   if (!arstn_i) counter <= {DATA_WIDTH{1'b0}};
-   else if(key && sw_event) counter <= counter + 1;
+  always @( posedge clk100_i or negedge rstn_i ) begin
+   if ( !rstn_i )
+     counter_i <= {DATA_WIDTH{1'b0}};
+   else 
+       if( key && sw_event ) 
+         counter_i <= counter_i + 1;
    end
    
-  always @( posedge clk_i or negedge arstn_i ) begin
-   if (!arstn_i) sw_event <= 1'b0;
-   else if ((sw[0] + sw[1] + sw[2] + sw[3] + sw[4] + sw[5] + sw[6] + sw[7] + sw[8] + sw[9]) > 4'd3) sw_event <= 1'b1;
-        else sw_event <= 1'b0;
+  always @( posedge clk100_i or negedge rstn_i ) begin
+   if ( !rstn_i )
+     sw_event <= 1'b0;
   end
+  
+  REG_TEN reg_ten(
+  .clk100_i   ( clk100_i     ),
+  .rstn_i     ( key_i    [1] ),
+  .sw_i       ( sw_i         ),
+  .key_i      ( key_i    [0] ),
+  .led        ( ledr_o       )
+  );
+  
+  decoder_hex decoder_0(
+  .arstn_i    ( key_i       [1]   ),
+  .kod_i      ( counter_i   [3:0] ),
+  .hex_o      ( hex0_o      [6:0] )
+  );  
+  
+  decoder_hex decoder_1(
+  .arstn_i( key_i           [1]   ),
+  .kod_i  ( counter_i       [7:4] ),
+  .hex_o  ( hex1_o          [6:0] )
+  );  
   
 
 endmodule

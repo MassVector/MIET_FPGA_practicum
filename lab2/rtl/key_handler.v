@@ -11,20 +11,14 @@ module key_handler(
   output keypress0_event_o
   );
   
-  // Data on pressed keys
-  reg [1:0] keypress_event_data;
+  // Data on pressed KEY0
+  reg keypress_event_data;
   
   always @( posedge clk_i or negedge key_i[1] ) begin
-    if( ~key_i[1] ) begin
-      keypress_event_data[0] <= 0;
-      keypress_event_data[1] <= 0;
-    end
-    else begin
-      keypress_event_data[0] <= ~key_i[0];
-      keypress_event_data[1] <= 0;
-    end
+    if( key_i[1] )
+      keypress_event_data <= ~key_i[0];
   end
   
-  assign keypress0_event_o = keypress_event_data[0] & ~keypress_event_data[1];
+  assign keypress0_event_o = keypress_event_data;
 
 endmodule

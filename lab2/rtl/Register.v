@@ -11,7 +11,7 @@ module Register(
   
   reg [9:0] data;
   reg [2:0] btn_sync;
-  wire      btn_0_was_pressed;
+  wire      btn_was_pressed;
   
   always @( posedge clk_i or negedge rstn_i ) begin
     if ( !rstn_i )

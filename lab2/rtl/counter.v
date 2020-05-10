@@ -9,21 +9,29 @@ module counter(
   output [6:0] hex0_o
   );
     
-  reg [9:0] register = 10'b0;
-  reg [7:0] counter = 8'd0;
+  reg [9:0] register;
+  reg [7:0] counter;
   
-  always @(posedge clk100_i) begin
+  wire bt_down;
   
-    if (key_i[0]) begin
-        register = sw_i;
-        counter = counter + 1;
+  pressed btdown(
+    .bt_i     (!key_i[0]),
+    .rst_i    (key_i[1]),
+    .clk100_i (clk100_i),
+    .btnd_o   (bt_down)
+    );
+  
+  always @(posedge clk100_i or negedge key_i[1]) begin
+         
+    if (!key_i[1]) begin
+        register <= 10'b0;
+        counter <= 8'd0;
     end
-    
-    if (key_i[1]) begin
-        register = 10'b0;
-        counter = 8'd0;
+    else
+      if (bt_down) begin
+        register <= sw_i;
+        counter <= counter + 1;
     end
-    
   end
     
   assign ledr_o = register;

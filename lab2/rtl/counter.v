@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module counter(
-  input        clk_i,
+  input        clk100_i,
   input  [9:0] sw_i,
   input  [1:0] key_i,
   output [9:0] ledr_o,
@@ -12,7 +12,7 @@ module counter(
   reg [9:0] register = 10'b0;
   reg [7:0] counter = 8'd0;
   
-  always @(posedge clk_i) begin
+  always @(posedge clk100_i) begin
   
     if (key_i[0]) begin
         register = sw_i;

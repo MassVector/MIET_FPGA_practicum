@@ -1,14 +1,4 @@
 `timescale 1ns / 1ps
-=======
-module counter(
-    input clk100_i,
-    input rstn_i,
-    input [9:0] sw_i,
-    input [1:0] key_i,
-    output [9:0] ledr_o,
-    output [6:0] hex1_o,
-    output [6:0] hex0_o
-);
 
 
 module counter (
@@ -33,19 +23,30 @@ module counter (
   wire  [6:0]  hex0_data;
   wire  [6:0]  hex1_data;
   
+  // Key press event handler flag
+  wire         keypress0_event;
+  
   
   always @( posedge clk_i or negedge key_i[1] ) begin
-    if ( key_i[0] ) begin
+    // 
+    if ( keypress0_event ) begin
       counter_data  <= counter_data + 1;
       register_data <= sw_i;
     end
-    
+    // Reset module
     if ( ~key_i[1] ) begin
       counter_data  <= 0;
       register_data <= 0;
     end
   end
   
+  
+  // Key press event handler module
+  key_handler key_handler(
+    .clk_i                 ( clk_i           ),
+    .key_i                 ( key_i           ),
+    .keypress0_event_o     ( keypress0_event )
+  );
   
   // Decodes data for output to HEX0
   decoder decoder0(

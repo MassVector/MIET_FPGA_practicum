@@ -3,7 +3,7 @@
 module tb_decoder;
 
   // decoder parameter
-  parameter PERIOD = 20;
+  localparam PERIOD = 20;
   
 
   // decoder input
@@ -20,22 +20,22 @@ module tb_decoder;
   );
 
   initial begin
-    #( PERIOD / 2 ) counter_data = 4'h1;
-    #( PERIOD / 2 ) counter_data = 4'h2;
-    #( PERIOD / 2 ) counter_data = 4'h3;
-    #( PERIOD / 2 ) counter_data = 4'h4;
-    #( PERIOD / 2 ) counter_data = 4'h5;
-    #( PERIOD / 2 ) counter_data = 4'h6;
-    #( PERIOD / 2 ) counter_data = 4'h7;
-    #( PERIOD / 2 ) counter_data = 4'h8;
-    #( PERIOD / 2 ) counter_data = 4'h9;
-    #( PERIOD / 2 ) counter_data = 4'hA;
-    #( PERIOD / 2 ) counter_data = 4'hB;
-    #( PERIOD / 2 ) counter_data = 4'hC;
-    #( PERIOD / 2 ) counter_data = 4'hD;
-    #( PERIOD / 2 ) counter_data = 4'hE;
-    #( PERIOD / 2 ) counter_data = 4'hF;
-    #( PERIOD / 2 ) $finish;
+    #PERIOD counter_data = 4'h1;
+    #PERIOD counter_data = 4'h2;
+    #PERIOD counter_data = 4'h3;
+    #PERIOD counter_data = 4'h4;
+    #PERIOD counter_data = 4'h5;
+    #PERIOD counter_data = 4'h6;
+    #PERIOD counter_data = 4'h7;
+    #PERIOD counter_data = 4'h8;
+    #PERIOD counter_data = 4'h9;
+    #PERIOD counter_data = 4'hA;
+    #PERIOD counter_data = 4'hB;
+    #PERIOD counter_data = 4'hC;
+    #PERIOD counter_data = 4'hD;
+    #PERIOD counter_data = 4'hE;
+    #PERIOD counter_data = 4'hF;
+    #PERIOD $finish;
   end
 
 endmodule

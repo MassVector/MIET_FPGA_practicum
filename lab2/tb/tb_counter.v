@@ -4,9 +4,8 @@ module tb_counter;
 
   // counter parameters
   localparam CLK_FREQ_MHZ   = 50;
-  localparam CLK_PERIOD = 1000 / CLK_FREQ_MHZ;
+  localparam CLK_PERIOD     = 1000 / CLK_FREQ_MHZ;
   localparam CLK_SEMIPERIOD = 1000 / 2  / CLK_FREQ_MHZ;
- 
 
 
   // Clock

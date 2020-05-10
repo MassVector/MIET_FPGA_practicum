@@ -39,10 +39,10 @@ module top_device(
     btn_sync[2] <= btn_sync[1];
   end
   
-  assign button_was_pressed = ~btn_sync[2] & btn_sync[1];
+  assign btn_sync_was_pressed = ~btn_sync[2] & btn_sync[1];
             
   always @( posedge clk_50MHZ ) begin 
-    if ( button_was_pressed ) begin
+    if ( btn_sync_was_pressed ) begin
       hex0_o <= 7'b1000000;
       hex1_o <= 7'b1000000;
     end  

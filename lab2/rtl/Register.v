@@ -10,23 +10,25 @@ module Register(
   );
   
   reg [9:0] data;
-  reg [2:0] btn_sync; 
-  wire      btn_was_pressed;
+  reg [2:0] btn_sync;
+  wire      btn_0_was_pressed;
   
-
-  always @( posedge clk_i ) begin
-    btn_sync[0] <= en_i;
-    btn_sync[1] <= btn_sync[0];
-    btn_sync[2] <= btn_sync[1];
+  always @( posedge clk_i or negedge rstn_i ) begin
+    if ( !rstn_i )
+      btn_sync <= 3'b0;
+    else  
+      btn_sync[0] <= ~en_i;
+      btn_sync[1] <= btn_sync[0];
+      btn_sync[2] <= btn_sync[1];
   end
-
+  
   assign btn_was_pressed = ~btn_sync[2] & btn_sync[1];
   
   always @( posedge clk_i or negedge rstn_i ) begin
     if ( !rstn_i ) 
       data <= 0;
-    else if ( en_i ) 
-           data <= data_i;
+    else if ( btn_was_pressed ) 
+      data <= data_i;
   end 
   
   assign register_o = data;

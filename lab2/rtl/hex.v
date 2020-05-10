@@ -22,7 +22,7 @@
 
 module hex(
     	input        [3:0]    in,
-		output reg   [6:0]    out
+	output reg   [6:0]    out
     );
     
 always @ (*) begin

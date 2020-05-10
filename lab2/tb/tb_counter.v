@@ -3,13 +3,13 @@
 module tb_counter;
 
   // counter parameters
-  localparam CLK_FREQ_MHZ   = 50;
+  localparam CLK_FREQ_MHZ   = 100;
   localparam CLK_PERIOD     = 1000 / CLK_FREQ_MHZ;
   localparam CLK_SEMIPERIOD = 1000 / 2  / CLK_FREQ_MHZ;
 
 
   // Clock
-  reg          clk50m;
+  reg          clk100_i;
   
   // counter inputs
   reg   [9:0]  sw;
@@ -22,9 +22,9 @@ module tb_counter;
 
 
   initial begin
-    clk50m = 1;
+    clk100_i = 1;
     forever
-      #CLK_SEMIPERIOD clk50m = ~clk50m;
+      #CLK_SEMIPERIOD clk100_i = ~clk100_i;
   end
 
   initial begin
@@ -33,14 +33,14 @@ module tb_counter;
   end
 
   counter  DUT (
-    .clk_i                   ( clk50m        ),
+    .clk100_i                ( clk100_i       ),
     
-    .sw_i                    ( sw      [9:0] ),
-    .key_i                   ( key     [1:0] ),
+    .sw_i                    ( sw       [9:0] ),
+    .key_i                   ( key      [1:0] ),
 
-    .ledr_o                  ( ledr    [9:0] ),
-    .hex1_o                  ( hex1    [6:0] ),
-    .hex0_o                  ( hex0    [6:0] )
+    .ledr_o                  ( ledr     [9:0] ),
+    .hex1_o                  ( hex1     [6:0] ),
+    .hex0_o                  ( hex0     [6:0] )
     );
 
   initial begin
@@ -49,7 +49,7 @@ module tb_counter;
       sw = $random();
       #CLK_PERIOD key[0] = 1;
       #CLK_PERIOD key[0] = 0;
-      #CLK_PERIOD key[0] = 1;
+      #CLK_PERIOD key[0] = 0;
       #CLK_PERIOD key[0] = 0;
     end
     
@@ -61,7 +61,7 @@ module tb_counter;
       sw = $random();
       #CLK_PERIOD key[0] = 1;
       #CLK_PERIOD key[0] = 0;
-      #CLK_PERIOD key[0] = 1;
+      #CLK_PERIOD key[0] = 0;
       #CLK_PERIOD key[0] = 0;
     end
     

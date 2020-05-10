@@ -3,7 +3,7 @@
 
 module counter (
   // External clock source
-  input          clk_i,
+  input          clk100_i,
   
   // Data inputs
   input   [9:0]  sw_i,
@@ -27,7 +27,7 @@ module counter (
   wire         keypress0_event;
   
   
-  always @( posedge clk_i or negedge key_i[1] ) begin
+  always @( posedge clk100_i or negedge key_i[1] ) begin
     // 
     if ( keypress0_event ) begin
       counter_data  <= counter_data + 1;
@@ -43,7 +43,7 @@ module counter (
   
   // Key press event handler module
   key_handler key_handler(
-    .clk_i                 ( clk_i           ),
+    .clk100_i              ( clk100_i        ),
     .key_i                 ( key_i           ),
     .keypress0_event_o     ( keypress0_event )
   );

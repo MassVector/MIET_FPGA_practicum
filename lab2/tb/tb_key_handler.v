@@ -3,12 +3,12 @@
 module tb_key_handler;   
 
   // key_handler Parameters
-  localparam CLK_FREQ_MHZ   = 50;
+  localparam CLK_FREQ_MHZ   = 100;
   localparam CLK_PERIOD     = 1000 / CLK_FREQ_MHZ;
   localparam CLK_SEMIPERIOD = 1000 / 2  / CLK_FREQ_MHZ;
   
   // Clock
-  reg          clk50m;
+  reg          clk100_i;
 
   // key_handler input
   reg   [1:0]  key;
@@ -18,13 +18,13 @@ module tb_key_handler;
   
   
   initial begin
-    clk50m = 1;
+    clk100_i = 1;
     forever
-      #CLK_SEMIPERIOD clk50m = ~clk50m;
+      #CLK_SEMIPERIOD clk100_i = ~clk100_i;
   end
   
   key_handler  DUT (
-    .clk_i                   ( clk50m                 ),
+    .clk100_i                ( clk100_i               ),
     
     .key_i                   ( key              [1:0] ),
   

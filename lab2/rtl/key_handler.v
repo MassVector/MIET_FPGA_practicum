@@ -2,23 +2,27 @@
 
 module key_handler(
   // External clock source
-  input  clk_i,
+  input        clk100_i,
   
   // Data input
   input [1:0]  key_i,
   
   // Data output
-  output keypress0_event_o
+  output       keypress0_event_o
   );
   
-  // Data on pressed KEY0
-  reg keypress_event_data;
-  
-  always @( posedge clk_i or negedge key_i[1] ) begin
-    if( key_i[1] )
-      keypress_event_data <= ~key_i[0];
+  // Data on pressed keys
+  reg [1:0] keypress_event_data;
+
+  always @( posedge clk100_i or negedge key_i[1] ) begin
+    if( key_i[1] ) begin
+      keypress_event_data[0] <=  key_i[0];
+      keypress_event_data[1] <= ~keypress_event_data[0];
+    end
+    else
+      keypress_event_data    <=  2;
   end
   
-  assign keypress0_event_o = keypress_event_data;
+  assign keypress0_event_o = keypress_event_data[0] & keypress_event_data[1];
 
 endmodule

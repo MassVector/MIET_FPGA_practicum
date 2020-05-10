@@ -11,16 +11,17 @@ module counter(
   wire      key;
   reg [2:0] btn_sync;
   reg [9:0] led;
-  reg [7:0] counter;
+  reg [7:0] counter_i;
   reg [6:0] out;
   
   assign hex    = out;
   assign ledr_o = led;
   assign key    = ~btn_sync[2] & btn_sync[1];
+  assign rstn_i = key_i[1];
   
   always @( posedge clk100_i )
     begin 
-      btn_sync[0] <= key_i[0];
+      btn_sync[0] <= ~key_i[0];
       btn_sync[1] <= btn_sync[0];
       btn_sync[2] <= btn_sync[1];
     end
@@ -37,21 +38,21 @@ module counter(
   always @( posedge clk100_i or posedge rstn_i )
     begin
       if ( rstn_i == 0 )
-        counter <= 8'd0;
+        counter_i <= 8'd0;
       else if ( key )
-        counter = counter + 1;
+        counter_i = counter_i + 1;
     end
   
   hex hex0
   (
-    .hex_i( counter[3:0] ),
-    .hex_o( hex0_o       )
+    .hex_i( counter_i[3:0] ),
+    .hex_o( hex0_o         )
   );
   
   hex hex1
   (
-    .hex_i( counter[7:4] ),
-    .hex_o( hex1_o       )
+    .hex_i( counter_i[7:4] ),
+    .hex_o( hex1_o         )
   );
   
 endmodule

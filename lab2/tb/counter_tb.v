@@ -24,45 +24,69 @@ module counter_tb(
 
     );
 
-    reg            clk50_i;      
-    reg            en_i;        
-    reg            arst_i;
-    reg            sw_event_i;
-    wire   [7:0]   counter_o;
+  reg          clk100_i;
+  reg          rstn_i;
+  reg   [11:0] sw_i;
+  reg   [2:0]  key_i;
+  wire  [9:0]  ledr_o;
+  wire  [6:0]  hex1_o;
+  wire  [6:0]  hex0_o;
 
     counter DUT (
-        .clk50_i    (clk50_i),
-        .en_i       (en_i),
-        .arst_i     (arst_i),
-        .sw_event_i (sw_event_i),
-        .counter_o  (counter_o)
+      .clk100_i  ( clk100_i ),
+      .rstn_i    ( rstn_i   ),
+      .sw_i      ( sw_i     ),
+      .key_i     ( key_i    ),
+      .ledr_o    ( ledr_o   ),
+      .hex1_o    ( hex1_o   ),
+      .hex0_o    ( hex0_o   )
     );
 
     initial begin
-        en_i       = 1'b0;
-        arst_i     = 1'b1;
-        sw_event_i = 1'b0;
-        #20
-        arst_i = 1'b0;
-        #45
-        en_i    = 1'b1;
-        #20
-        en_i    = 1'b0;
-        #50
-        sw_event_i = 1'b1;
-        #10
-        en_i = 1'b1;
-        #20
-        en_i = 1'b0;
-        #50
-        arst_i = 1'b1;
+    
+      sw_i[7:0] = 8'b10101010;
+      sw_i[11:7] = 3'b000;
+      key_i[2:0] = 3'b111;
+      #55
+      key_i[1] = 1'b0;
+      #40
+      key_i[1] = 1'b1;
+      #40
+      sw_i[7:0] = 8'b00001111;
+      #40
+      key_i[0] = 1'b0;
+      #40
+      key_i[0] = 1'b1;
+      #40
+      key_i[0] = 1'b0;
+      #40
+      key_i[0] = 1'b1;
+      #40
+      sw_i[11] = 1'b1;
+      #40
+      key_i[0] = 1'b0;
+      #40
+      key_i[0] = 1'b1;
+      #40
+      key_i[2] = 1'b0;
+      #40
+      key_i[2] = 1'b1;
+      #40
+      sw_i[7:0] = 8'b00001111;
+      #40
+      key_i[0] = 1'b0;
+      #40
+      key_i[0] = 1'b1;
+      
+      
+      
     end
 
 
     always begin 
-        clk50_i = 1'b1;
-        #10;
-        clk50_i = 1'b0;
-        #10;
+      clk100_i = 1'b1;
+      #10;
+      clk100_i = 1'b0;
+      #10;
     end
 endmodule

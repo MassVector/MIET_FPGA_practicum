@@ -30,11 +30,11 @@ module counter#(
   end
   
   REG_TEN reg_ten(
-  .clk100_i   ( clk100_i     ),
-  .rstn_i     ( key_i    [1] ),
-  .sw_i       ( sw_i         ),
-  .key_i      ( key_i    [0] ),
-  .led        ( ledr_o       )
+  .clk100_i   ( clk100_i       ),
+  .rstn_i     ( key_i    [1]   ),
+  .sw_i       ( sw_i     [9:0] ),
+  .key_i      ( key_i    [0]   ),
+  .led_o      ( ledr_o   [9:0] )
   );
   
   decoder_hex decoder_0(

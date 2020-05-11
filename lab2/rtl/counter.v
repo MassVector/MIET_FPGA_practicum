@@ -15,7 +15,7 @@ module counter(
 
   reg  [7:0] counter;
   
-
+  
   wire       key_pressed;
   
   
@@ -33,18 +33,18 @@ debounce d(
   .clk_i        ( clk100_i     ),
   .rst_i        ( !key_i   [1] ),
   .en_i         ( key_i    [0] ),
-  .en_down_o    ( key_pressed  ), 
-  .en_up_o      (              )
+  .en_down_o    (              ), 
+  .en_up_o      ( key_pressed )
 );
   
   
 register r(
-  .clk_i        ( clk100_i    ),
-  .rstn_i       ( key_i[1]    ),
+  .clk_i        ( clk100_i     ),
+  .rstn_i       ( key_i[1]     ),
   .en_i         ( key_pressed ),
-  .data_i       ( sw_i        ),
+  .data_i       ( sw_i         ),
 
-  .data_o       ( ledr_o      )
+  .data_o       ( ledr_o       )
 );
 
 

@@ -13,17 +13,25 @@ module counter#(
   );
   
   reg  [7:0] counter_i;
+  wire bwp;
   
+Debounce deb(
+  .clk100_i   ( clk100_i ),
+  .rstn_i     ( key_i[1] ),
+  .en_i       ( !key_i[0] ),
+  .en_down_o  ( bwp ) 
+  );
+
 always @( posedge clk100_i or negedge key_i[1] ) begin
   if ( !key_i[1] ) begin
     counter_i <= {DATA_WIDTH{1'b0}};
   end
   else 
-      if( key_i[0] ) begin
+      if( bwp ) begin
         counter_i <= counter_i + 1;
       end
 end
-  
+
   REG_TEN reg_ten(
   .clk100_i   ( clk100_i       ),
   .rstn_i     ( key_i    [1]   ),

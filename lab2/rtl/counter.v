@@ -20,12 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module main(
+module counter(
   input   [9:0]  sw_i,
-  input          btn_i,
-  input          clk50_i,
-  input          arstn_i,  
-  output  [9:0]  led_o,
+  input          key_i,
+  input          clk100_i,
+  input          rstn_i,  
+  output  [9:0]  ledr_o,
   output  [6:0]  hex0_o,
   output  [6:0]  hex1_o
     );       
@@ -33,12 +33,12 @@ module main(
 reg  [2:0] button_syncroniser;
 wire       key_was_pressed;
 
-always @( posedge clk50_i or negedge arstn_i ) 
+always @( posedge clk100_i or negedge rstn_i ) 
   begin
-    if ( !arstn_i )
+    if ( !rstn_i )
       button_syncroniser    <= 3'b0;
     else
-      button_syncroniser[0] <= ~btn_i;
+      button_syncroniser[0] <= ~key_i;
       button_syncroniser[1] <= button_syncroniser[0];
       button_syncroniser[2] <= button_syncroniser[1];
   end
@@ -47,23 +47,23 @@ assign key_was_pressed = ~button_syncroniser[2] & button_syncroniser[1];
 
 reg [9:0] q;
 
-assign led_o = q;
+assign ledr_o = q;
 
-always @( posedge clk50_i or negedge arstn_i ) 
+always @( posedge clk100_i or negedge rstn_i ) 
   begin
-    if ( !arstn_i ) 
+    if ( !rstn_i ) 
       q <= 10'd0;
     else if ( key_was_pressed ) 
       q <= sw_i;
   end
 
 reg [7:0] counter;
-always @( posedge clk50_i or negedge arstn_i ) 
+always @( posedge clk100_i or negedge rstn_i ) 
   begin
-    if ( !arstn_i ) 
+    if ( !rstn_i ) 
       counter <= 8'd0;
-    else if ( key_was_pressed && ( sw_i > 10'd20 ) ) // Г¤Г«Гї ГЇГ°ГЁГ¬ГҐГ°Г  Г±Г®ГЎГ»ГІГЁГҐ ГїГўГ«ГїГҐГІГ±Гї Г­Г  sw_i Г·ГЁГ±Г«Г® ГЎГ®Г«ГјГёГҐ 20
-      counter = counter + 1;
+    else if ( key_was_pressed && ( sw_i > 10'd20 ) ) // для примера событие является на sw_i число больше 20
+      counter <= counter + 1;
   end
   
 hex hex0 ( 

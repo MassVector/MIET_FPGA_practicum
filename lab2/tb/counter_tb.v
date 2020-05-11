@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module main_tb(
+module counter_tb(
 
     );
     
@@ -28,49 +28,50 @@ localparam CLK_FREQ_MHZ   = 50;
 localparam CLK_SEMIPERIOD = ( 1000 / CLK_FREQ_MHZ) / 2;     
 
 reg   [9:0]  sw_i;
-wire  [9:0]  led_o;
-reg          btn_i;
-reg          arstn_i;
-reg          clk50_i;
+wire  [9:0]  ledr_o;
+reg          key_i;
+reg          rstn_i;
+reg          clk100_i;
 wire  [6:0]  hex0_o;
 wire  [6:0]  hex1_o;
 
-main DUT (
- .sw_i       (  sw_i     ),
- .led_o      (  led_o    ),
- .clk50_i    (  clk50_i  ),
- .btn_i      (  btn_i    ),
- .arstn_i    (  arstn_i  ),
- .hex0_o     (  hex0_o   ),
- .hex1_o     (  hex1_o   )
+counter DUT (
+ .sw_i       (  sw_i      ),
+ .ledr_o     (  ledr_o    ),
+ .clk100_i   (  clk100_i  ),
+ .key_i      (  key_i     ),
+ .rstn_i     (  rstn_i    ),
+ .hex0_o     (  hex0_o    ),
+ .hex1_o     (  hex1_o    )
 );
 
 initial begin
-  clk50_i = 1'b1;
+  clk100_i = 1'b1;
   forever begin
-    #CLK_SEMIPERIOD clk50_i=~clk50_i;
+    #CLK_SEMIPERIOD clk100_i=~clk100_i;
   end
 end
 
 initial begin
-  arstn_i = 1'b1;
+  rstn_i = 1'b1;
   #(4*CLK_SEMIPERIOD);
-  arstn_i = 1'b0;
+  rstn_i = 1'b0;
   #(4*CLK_SEMIPERIOD);
-  arstn_i = 1'b1;
+  rstn_i = 1'b1;
 end
 
 initial begin
   sw_i  [9:0] = 10'b0;
-  btn_i       = 1'b0;
+  key_i       = 1'b0;
   repeat(40)begin
     #(CLK_SEMIPERIOD - 1);
     sw_i[9:0] = $random();
     #(3*CLK_SEMIPERIOD);
-    btn_i = 1'b1;
+    key_i = 1'b1;
     #(3*CLK_SEMIPERIOD);
-    btn_i = 1'b0;
+    key_i = 1'b0;
   end
 end    
     
 endmodule
+

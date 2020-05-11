@@ -19,7 +19,7 @@ always @ (posedge clk100_i or negedge rst_i) begin
       end
     end
     
-assign btnd_o = synch[0] & ~synch[0];
+assign btnd_o = synch[0] & ~synch[1];
     
     
 endmodule

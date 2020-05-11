@@ -10,7 +10,7 @@ module counter(
   );
     
   reg [9:0] register;
-  reg [7:0] counter;
+  reg [7:0] cntr;
   
   wire bt_down;
   
@@ -25,24 +25,24 @@ module counter(
          
     if (!key_i[1]) begin
         register <= 10'b0;
-        counter <= 8'd0;
+        cntr <= 8'd0;
     end
     else
       if (bt_down) begin
         register <= sw_i;
-        counter <= counter + 1;
+        cntr <= cntr + 1;
     end
   end
     
   assign ledr_o = register;
   
   dectohex dec0
-    ( .dec(counter[7:4]),
+    ( .dec(cntr[7:4]),
       .hex(hex0_o)
     );
     
   dectohex dec1
-    ( .dec(counter[3:0]),
+    ( .dec(cntr[3:0]),
       .hex(hex1_o)
     );
     

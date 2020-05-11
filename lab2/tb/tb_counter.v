@@ -28,8 +28,40 @@ module tb_counter;
   end
 
   initial begin
-    key[1] = 0;
     #CLK_SEMIPERIOD key[1] = 1;
+  end
+  
+  initial begin
+    #( CLK_SEMIPERIOD * 3 ) sw = $random();
+  end
+  
+  initial begin
+    key = 0;
+    repeat ( 4 ) begin
+      #( CLK_PERIOD * 2) key[0] = 1;
+      #( CLK_PERIOD * 2) key[0] = 0;
+    end
+    
+    key[1] = 0;
+    
+    repeat ( 4 ) begin
+      sw = $random();
+      #( CLK_PERIOD * 2) key[0] = 1;
+      #( CLK_PERIOD * 2) key[0] = 0;
+    end
+    
+    
+    key[1] = 0;
+    #CLK_PERIOD;
+    key[1] = 1;
+    
+    repeat ( 4 ) begin
+      sw = $random();
+      #( CLK_PERIOD * 2) key[0] = 1;
+      #( CLK_PERIOD * 2) key[0] = 0;
+    end
+    
+    $finish;
   end
 
   counter  DUT (
@@ -42,30 +74,5 @@ module tb_counter;
     .hex1_o                  ( hex1     [6:0] ),
     .hex0_o                  ( hex0     [6:0] )
     );
-
-  initial begin
-    key[0] = 0;
-    repeat ( 4 ) begin
-      sw = $random();
-      #CLK_PERIOD key[0] = 1;
-      #CLK_PERIOD key[0] = 1;
-      #CLK_PERIOD key[0] = 1;
-      #CLK_PERIOD key[0] = 0;
-    end
-    
-    key[1] = 0;
-    #CLK_PERIOD;
-    key[1] = 1;
-    
-    repeat ( 4 ) begin
-      sw = $random();
-      #CLK_PERIOD key[0] = 1;
-      #CLK_PERIOD key[0] = 1;
-      #CLK_PERIOD key[0] = 1;
-      #CLK_PERIOD key[0] = 0;
-    end
-    
-    $finish;
-  end
 
 endmodule

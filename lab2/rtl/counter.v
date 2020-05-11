@@ -21,14 +21,10 @@ ccccounter thirdmod
   .hex1_o(hex1_o),
   .hex0_o(hex0_o));
   
-button_fix but0
+button_fix butt0
 ( .key_i   ( !key_i[0]  ),
-  .ondn_o  ( bt_down[0] ),
-  .clk100_i   ( clk100_i   )); 
-button_fix but1
-( .key_i   ( !key_i[1]  ),
-  .ondn_o  ( bt_down[1] ),
+  .ondn_o  ( bt_down ),
+  .reset_i   ( key_i[1]   ),
   .clk100_i   ( clk100_i   ));
-  
  
 endmodule

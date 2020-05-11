@@ -2,36 +2,28 @@
 
 
 module button_fix(
-  input clk100_i,
-  input key_i,
-  output reg state_o=0,
-  output ondn_o,
-  output onup_o);
+    input clk100_i,
+    input  reset_i,
+    input key_i,
+    output ondn_o);
 
-reg sync_0 = 0, sync_1 = 0;
+reg sync[1:0];
 
+reg counter;
 
-always @(posedge clk100_i) sync_0 <= key_i;
-always @(posedge clk100_i) sync_1 <= sync_0;
-
-reg [1:0] counter = 2'd0;
-
-wire idle = (state_o == sync_1);
-wire max  = &counter;
-
-always @(posedge clk100_i)
+always @( posedge clk100_i or negedge reset_i ) begin
+if( !reset_i )
+begin
+  sync[0] <= 2'b0;
+  sync[1] <= 2'b0;
+end
+  else
   begin
-    if (idle)
-        counter <= 0;
-    else
-      begin
-        counter <= counter + 1;
-          if (max)
-            state_o <= ~state_o;
-     end
+  sync[0] <= key_i;
+  sync[1] <= sync[0];
   end
+end
 
-assign ondn_o = ~idle & max & ~state_o;
-assign onup_o = ~idle & max & state_o;
+assign ondn_o = ~sync[1] & sync[0];
 
 endmodule

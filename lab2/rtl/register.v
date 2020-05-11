@@ -9,10 +9,16 @@ module register(
   output reg [9:0]  data_o       
   );
   
+  wire btn_was_pressed;
+  
+  keypress kpr(
+    .btn_was_pressed_o ( btn_was_pressed )
+  );
+  
   always @( posedge clk_i or negedge rstn_i ) begin
     if ( !rstn_i ) 
       data_o <= 0;
-    else if ( !en_i ) 
+    else if ( btn_was_pressed ) 
       data_o <= data_i;
   end 
  

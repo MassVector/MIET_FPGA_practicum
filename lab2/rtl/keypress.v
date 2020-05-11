@@ -15,7 +15,7 @@ module keypress(
       btn_sync <= 2'b0;
     else
       begin
-        btn_sync[0] <= en_i;
+        btn_sync[0] <= ~en_i;
         btn_sync[1] <= btn_sync[0];
       end
   end

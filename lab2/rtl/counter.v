@@ -38,7 +38,6 @@ always @( posedge clk100_i or negedge key_i[1] )
 localparam OVERLOAD_VALUE = 10;
 reg [3:0] first_digit;
 reg [3:0] second_digit;
-reg       overload_flag;
 always @( posedge clk100_i or negedge key_i[1] ) 
   begin
     if ( ~key_i[1] )

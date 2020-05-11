@@ -23,30 +23,25 @@ module counter (
   wire  [6:0]  hex0_data;
   wire  [6:0]  hex1_data;
   
-  // Key press event handler flag
-  wire         keypress0_event;
+  // Key press event handler
+  reg   keypress0_event_data;
   
+  always @( negedge key_i[0] ) begin
+    if ( ~key_i[0] )
+      keypress0_event_data <= 1;
+  end
   
   always @( posedge clk100_i or negedge key_i[1] ) begin
-    // 
-    if ( keypress0_event ) begin
-      counter_data  <= counter_data + 1;
-      register_data <= sw_i;
-    end
-    // Reset module
     if ( ~key_i[1] ) begin
       counter_data  <= 0;
       register_data <= 0;
     end
+    if ( keypress0_event_data ) begin
+      counter_data           <= counter_data + 1;
+      register_data          <= sw_i;
+      keypress0_event_data   <= 0;
+    end
   end
-  
-  
-  // Key press event handler module
-  key_handler key_handler(
-    .clk100_i              ( clk100_i        ),
-    .key_i                 ( key_i           ),
-    .keypress0_event_o     ( keypress0_event )
-  );
   
   // Decodes data for output to HEX0
   decoder decoder0(

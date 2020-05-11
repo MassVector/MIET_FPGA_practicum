@@ -48,8 +48,8 @@ module tb_counter;
     repeat ( 4 ) begin
       sw = $random();
       #CLK_PERIOD key[0] = 1;
-      #CLK_PERIOD key[0] = 0;
-      #CLK_PERIOD key[0] = 0;
+      #CLK_PERIOD key[0] = 1;
+      #CLK_PERIOD key[0] = 1;
       #CLK_PERIOD key[0] = 0;
     end
     
@@ -60,8 +60,8 @@ module tb_counter;
     repeat ( 4 ) begin
       sw = $random();
       #CLK_PERIOD key[0] = 1;
-      #CLK_PERIOD key[0] = 0;
-      #CLK_PERIOD key[0] = 0;
+      #CLK_PERIOD key[0] = 1;
+      #CLK_PERIOD key[0] = 1;
       #CLK_PERIOD key[0] = 0;
     end
     

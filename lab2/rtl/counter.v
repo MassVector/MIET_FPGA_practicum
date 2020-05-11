@@ -35,22 +35,45 @@ always @( posedge clk100_i or negedge key_i[1] )
   end
 
 // hex counter logic
-reg [7:0] hex_counter;
+localparam OVERLOAD_VALUE = 10;
+reg [3:0] first_digit;
+reg [3:0] second_digit;
+reg       overload_flag;
 always @( posedge clk100_i or negedge key_i[1] ) 
   begin
-    if ( ~key_i[1] ) 
-      hex_counter <= 8'd0;
+    if ( ~key_i[1] )
+      begin
+        first_digit   <= 4'd0;
+        second_digit  <= 4'd0;
+      end
     else if ( key_was_pressed )
-      hex_counter = hex_counter + 1;
+      begin
+        // x9 reached or OVERLOAD_VALUE
+        if ( first_digit > 4'd8 )
+          begin
+            first_digit <= 4'd0;
+            // 99 reached or OVERLOAD_VALUE 
+            if ( second_digit > 4'd8 )
+              begin
+                // overload state ( EE )
+                first_digit  <= OVERLOAD_VALUE;
+                second_digit <= OVERLOAD_VALUE;
+              end
+            else
+              second_digit <= second_digit + 1;
+          end
+        else
+          first_digit  <= first_digit + 1;
+      end
   end
 
 hex_decoder dec1 ( 
-  .data_i( hex_counter[7:4] ),
+  .data_i( second_digit  ),
   .data_o( hex1_o       )
   );
   
 hex_decoder dec0 ( 
-  .data_i( hex_counter[3:0] ),
+  .data_i( first_digit ),
   .data_o( hex0_o       )
   );
 

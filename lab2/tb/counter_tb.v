@@ -49,7 +49,7 @@ end
 initial begin
   sw  = 10'b0;
   key[0] = 1;
-  repeat(40)begin
+  repeat(110)begin
       #(6*CLK_SEMIPERIOD);
       sw[9:0] = $random();
       #(3*CLK_SEMIPERIOD);

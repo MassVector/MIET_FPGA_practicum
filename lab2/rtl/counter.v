@@ -27,8 +27,7 @@ module counter (
   reg          keypress0_event_data;
   
   always @( negedge key_i[0] ) begin
-    if ( key_i[1] )
-      keypress0_event_data <= 1;
+    keypress0_event_data <= 1;
   end
   
   always @( negedge key_i[1] ) begin
@@ -38,7 +37,7 @@ module counter (
   end
   
   always @( posedge clk100_i ) begin
-    if ( key_i[1] & keypress0_event_data ) begin
+    if ( keypress0_event_data ) begin
       counter_data         <= counter_data + 1;
       register_data        <= sw_i;
       keypress0_event_data <= 0;

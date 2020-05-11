@@ -22,7 +22,7 @@
 
 module counter(
   input   [9:0]  sw_i,
-  input          key_i,
+  input   [1:0]  key_i,
   input          clk100_i,
   input          rstn_i,  
   output  [9:0]  ledr_o,
@@ -33,12 +33,12 @@ module counter(
 reg  [2:0] button_syncroniser;
 wire       key_was_pressed;
 
-always @( posedge clk100_i or negedge rstn_i ) 
+always @( posedge clk100_i or negedge key_i[1] ) 
   begin
-    if ( !rstn_i )
+    if ( !key_i[1] )
       button_syncroniser    <= 3'b0;
     else
-      button_syncroniser[0] <= ~key_i;
+      button_syncroniser[0] <= ~key_i[0];
       button_syncroniser[1] <= button_syncroniser[0];
       button_syncroniser[2] <= button_syncroniser[1];
   end
@@ -49,18 +49,18 @@ reg [9:0] q;
 
 assign ledr_o = q;
 
-always @( posedge clk100_i or negedge rstn_i ) 
+always @( posedge clk100_i or negedge key_i[1] ) 
   begin
-    if ( !rstn_i ) 
+    if ( !key_i[1] ) 
       q <= 10'd0;
     else if ( key_was_pressed ) 
       q <= sw_i;
   end
 
 reg [7:0] counter;
-always @( posedge clk100_i or negedge rstn_i ) 
+always @( posedge clk100_i or negedge key_i[1] ) 
   begin
-    if ( !rstn_i ) 
+    if ( !key_i[1] ) 
       counter <= 8'd0;
     else if ( key_was_pressed && ( sw_i > 10'd20 ) ) // для примера событие является на sw_i число больше 20
       counter <= counter + 1;

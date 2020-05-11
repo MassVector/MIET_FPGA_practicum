@@ -29,7 +29,7 @@ localparam CLK_SEMIPERIOD = ( 1000 / CLK_FREQ_MHZ) / 2;
 
 reg   [9:0]  sw_i;
 wire  [9:0]  ledr_o;
-reg          key_i;
+reg   [1:0]  key_i;
 reg          rstn_i;
 reg          clk100_i;
 wire  [6:0]  hex0_o;
@@ -53,23 +53,24 @@ initial begin
 end
 
 initial begin
-  rstn_i = 1'b1;
+  rstn_i   = 1'b1;
+  key_i[1] = 1'b1;
   #(4*CLK_SEMIPERIOD);
-  rstn_i = 1'b0;
+  key_i[1] = 1'b0;
   #(4*CLK_SEMIPERIOD);
-  rstn_i = 1'b1;
+  key_i[1] = 1'b1;
 end
 
 initial begin
-  sw_i  [9:0] = 10'b0;
-  key_i       = 1'b0;
+  sw_i     = 10'b0;
+  key_i[0] = 1'b1;
   repeat(40)begin
     #(CLK_SEMIPERIOD - 1);
-    sw_i[9:0] = $random();
+    sw_i     = $random();
     #(3*CLK_SEMIPERIOD);
-    key_i = 1'b1;
+    key_i[0] = 1'b0;
     #(3*CLK_SEMIPERIOD);
-    key_i = 1'b0;
+    key_i[0] = 1'b1;
   end
 end    
     

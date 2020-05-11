@@ -54,7 +54,7 @@ initial begin
       sw[9:0] = $random();
       #(3*CLK_SEMIPERIOD);
       key[0] = 0;
-      #(3*CLK_SEMIPERIOD);
+      #(10*CLK_SEMIPERIOD);
       key[0] = 1;
   end
 end    

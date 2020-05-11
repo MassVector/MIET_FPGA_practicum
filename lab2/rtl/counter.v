@@ -16,7 +16,7 @@ wire key_was_pressed;
 
 always @( posedge clk100_i ) 
   begin
-    button_syncroniser[0] <= ~key_i[0];
+    button_syncroniser[0] <= key_i[0];
     button_syncroniser[1] <= button_syncroniser[0];
     button_syncroniser[2] <= button_syncroniser[1];
   end

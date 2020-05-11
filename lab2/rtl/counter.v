@@ -26,22 +26,23 @@ module counter (
   // Key press event handler
   reg          keypress0_event_data;
   
-  always @( negedge key_i[0] ) begin
-    if ( key_i[1] )
-      keypress0_event_data <= 1;
+  reg   [2:0]   key_sync;
+  always @( posedge clk100_i ) begin 
+    key_sync[0] <= ~key_i[0];
+    key_sync[1] <=  key_sync[0];
+    key_sync[2] <=  key_sync[1];
   end
+
+  assign keypress0_event_data = ~key_sync[2] & key_sync[1];
   
-  always @( negedge key_i[1] ) begin
-    counter_data         <= 0;
-    register_data        <= 0;
-    keypress0_event_data <= 0;
-  end
-  
-  always @( posedge clk100_i ) begin
-    if ( key_i[1] & keypress0_event_data ) begin
-      counter_data         <= counter_data + 1;
-      register_data        <= sw_i;
-      keypress0_event_data <= 0;
+  always @( posedge clk100_i or negedge key_i[1] ) begin
+    if ( ~key_i[1] ) begin
+      counter_data  <= 0;
+      register_data <= 0;
+    end
+    else if ( keypress0_event_data ) begin
+      counter_data  <= counter_data + 1;
+      register_data <= sw_i;
     end
   end
   

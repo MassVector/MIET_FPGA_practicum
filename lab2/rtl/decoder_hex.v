@@ -4,7 +4,7 @@ module decoder_hex(
 );
 
 always @( * ) begin
-  case ( kod_i[3:0] )
+  case ( kod_i )
     4'd0 : hex_o <= 7'b100_0000;
     4'd1 : hex_o <= 7'b111_1001;
     4'd2 : hex_o <= 7'b010_0100;
@@ -23,5 +23,5 @@ always @( * ) begin
     4'd15: hex_o <= 7'b000_1110;
     endcase
 end
-  
+
 endmodule

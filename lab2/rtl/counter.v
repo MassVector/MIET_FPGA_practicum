@@ -12,21 +12,17 @@ module counter#(
   output [6:0] hex0_o
   );
   
-  reg        sw_event;
   reg  [7:0] counter_i;
-
-  always @( posedge clk100_i or negedge rstn_i ) begin
-   if ( !rstn_i )
-     counter_i <= {DATA_WIDTH{1'b0}};
-   else 
-       if( key_i[0] && sw_event ) 
-         counter_i <= counter_i + 1;
-   end
-   
-  always @( posedge clk100_i or negedge rstn_i ) begin
-   if ( !rstn_i )
-     sw_event <= 1'b0;
+  
+always @( posedge clk100_i or negedge key_i[1] ) begin
+  if ( !key_i[1] ) begin
+    counter_i <= {DATA_WIDTH{1'b0}};
   end
+  else 
+      if( key_i[0] ) begin
+        counter_i <= counter_i + 1;
+      end
+end
   
   REG_TEN reg_ten(
   .clk100_i   ( clk100_i       ),
@@ -46,5 +42,5 @@ module counter#(
   .hex_o  ( hex1_o          [6:0] )
   );  
   
-
+     
 endmodule

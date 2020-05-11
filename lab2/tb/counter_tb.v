@@ -39,10 +39,11 @@ end
 // rst gen
 initial begin
   rstn = 1;
+  key[1] = 1;
   #(4*CLK_SEMIPERIOD);
-  rstn = 0;
+  key[1] = 0;
   #(4*CLK_SEMIPERIOD);
-  rstn = 1;
+  key[1] = 1;
 end
 
 initial begin

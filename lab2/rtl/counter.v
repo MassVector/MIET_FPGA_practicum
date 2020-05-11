@@ -26,9 +26,9 @@ assign key_was_pressed = ~button_syncroniser[2]
 // led register logic
 reg [9:0] register;
 assign ledr_o = register;
-always @( posedge clk100_i or negedge rstn_i ) 
+always @( posedge clk100_i or negedge rstn_i or negedge key_i[1] ) 
   begin
-    if ( ~rstn_i ) 
+    if ( ( ~rstn_i ) | ( ~key_i[1] ) )
       register <= 10'd0;
     else if ( key_was_pressed ) 
       register <= sw_i;
@@ -36,11 +36,11 @@ always @( posedge clk100_i or negedge rstn_i )
 
 // hex counter logic
 reg [7:0] hex_counter;
-always @( posedge clk100_i or negedge rstn_i ) 
+always @( posedge clk100_i or negedge rstn_i or negedge key_i[1] ) 
   begin
-    if ( ~rstn_i ) 
+    if ( ( ~rstn_i ) | ( ~key_i[1] ) ) 
       hex_counter <= 8'd0;
-    else if ( key_was_pressed && ( sw_i > 10'd500 ) )
+    else if ( key_was_pressed )
       hex_counter = hex_counter + 1;
   end
 

@@ -28,6 +28,7 @@ module counter (
   
   always @( negedge key_i[0] ) begin
     if ( ~key_i[0] )
+      register_data        <= sw_i;
       keypress0_event_data <= 1;
   end
   
@@ -38,7 +39,6 @@ module counter (
     end
     else if ( keypress0_event_data ) begin
       counter_data           <= counter_data + 1;
-      register_data          <= sw_i;
       keypress0_event_data   <= 0;
     end
   end

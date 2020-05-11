@@ -32,7 +32,7 @@ module register(
   always@( posedge clk_i or negedge rstn_i ) begin
     if ( !rstn_i ) 
       data_o <= 0;
-    else if ( !en_i) 
+    else if ( en_i) 
       data_o <= data_i;
   end
   

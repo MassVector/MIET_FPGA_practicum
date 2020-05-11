@@ -19,29 +19,30 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
-module Debounce(
+module debounce(
 
   input         clk_i,
   input         rst_i,
-  input         en_i, 
-  output        en_down_o
+  input         en_i,
+   
+  output        en_down_o,
+  output        en_up_o
 
 );
 
   reg [1:0] sync;
 
   always @( posedge clk_i or negedge rst_i ) begin
-    if ( !rst_i )
+    if ( rst_i )
       sync <= 2'b0;
     else
       begin
-      sync[0] <= ~en_i;
-      sync[1] <= sync[0];
+        sync[0] <= ~en_i;
+        sync[1] <= sync[0];
       end
   end
 
-assign en_down_o = ~sync[1] & sync[0];
-    
+  assign en_down_o = ~sync[1] & sync[0];
+  assign en_up_o   =  sync[1] & sync[0];    
   
 endmodule

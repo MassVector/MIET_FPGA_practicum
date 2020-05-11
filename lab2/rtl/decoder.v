@@ -9,7 +9,7 @@ module decoder(
   );
 
   always @( * ) begin
-    case ( counter_i[3:0] )
+    case ( counter_i )
       0  : hex_o = 7'b1000000;
       1  : hex_o = 7'b1111001;
       2  : hex_o = 7'b0100100;

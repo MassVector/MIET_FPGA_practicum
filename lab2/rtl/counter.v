@@ -13,11 +13,12 @@ module counter(
 
 reg  [7:0] counter;
 reg  [9:0] q;
-wire [1:0] bt_click;
+wire  bt_click;
 
 button_deb bt0(
   .btn_i   ( !key_i[0]   ),
-  .ondn_o  ( bt_click[0] ),
+  .ondn_o  ( bt_click    ),
+  .rst_i   ( key_i[1]    ),
   .clk_i   ( clk100_i    )
 ); 
 

@@ -30,9 +30,7 @@ module dec_to_hex(
   
   reg [6:0] data; 
   
-  always@( posedge clk_i or negedge key_i ) begin
-    if( !key_i ) data = 7'b1000000;
-      
+  always@( * ) begin
     case( data_i[3:0] )
       4'd0 :  data = 7'b100_0000;
       4'd1 :  data = 7'b111_1001;

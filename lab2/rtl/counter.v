@@ -33,8 +33,8 @@ debounce d(
   .clk_i        ( clk100_i     ),
   .rst_i        ( !key_i   [1] ),
   .en_i         ( key_i    [0] ),
-  .en_down_o    (              ), 
-  .en_up_o      ( key_pressed )
+  .en_down_o    ( key_pressed  ), 
+  .en_up_o      (              )
 );
   
   

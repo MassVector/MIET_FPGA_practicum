@@ -24,7 +24,7 @@ module counter (
   wire  [6:0]  hex1_data;
   
   // Key press event handler
-  reg          keypress0_event_data;
+  wire         keypress0_event_data;
   
   reg   [2:0]   key_sync;
   always @( posedge clk100_i ) begin 

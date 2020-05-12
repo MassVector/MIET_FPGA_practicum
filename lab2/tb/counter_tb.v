@@ -40,21 +40,21 @@ end
 initial begin
   rstn = 1;
   key[1] = 1;
-  #(4*CLK_SEMIPERIOD);
+  #( 4*CLK_SEMIPERIOD );
   key[1] = 0;
-  #(4*CLK_SEMIPERIOD);
+  #( 4*CLK_SEMIPERIOD );
   key[1] = 1;
 end
 
 initial begin
   sw  = 10'b0;
   key[0] = 1;
-  repeat(110)begin
-      #(6*CLK_SEMIPERIOD);
+  repeat( 300 )begin
+      #( 6*CLK_SEMIPERIOD );
       sw[9:0] = $random();
-      #(3*CLK_SEMIPERIOD);
+      #( 3*CLK_SEMIPERIOD );
       key[0] = 0;
-      #(10*CLK_SEMIPERIOD);
+      #( 10*CLK_SEMIPERIOD );
       key[0] = 1;
   end
 end    

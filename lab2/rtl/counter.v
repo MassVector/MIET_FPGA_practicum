@@ -53,7 +53,7 @@ always @( sw_i ) begin
   event_pass = 1'b0;
   mask       = 10'b0000000001;
   for ( i = 4'b0 ; i < 4'b1010; i = i + 1'b1 ) begin
-    if( (~sw_event[9:0] & mask) != 10'b0  ) begin
+    if( ( ~sw_event[9:0] & mask ) != 10'b0  ) begin
       sw_event[9:0] = mask;
       i = 4'b1010;
       event_pass = 1'b1;

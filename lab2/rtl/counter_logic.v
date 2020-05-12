@@ -16,7 +16,7 @@ output reg [7:0] counter_o
 always@( posedge clk_i or negedge rstn_i )begin
   if( !rstn_i ) 
     counter_o <= 0; 
-  else if( btn_is_pressed_i ) 
+  else if ( btn_is_pressed_i ) 
     counter_o <= counter_o + 1;
 end
 

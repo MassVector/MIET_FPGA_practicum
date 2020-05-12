@@ -11,10 +11,10 @@ module reg_10_bit(
   
     
   always @( posedge clk_i or negedge rstn_i ) begin
-      if ( !rstn_i ) 
-        register_o <= 0;
-      else if ( btn_is_pressed_i ) 
-        register_o <= data_i;
+    if ( !rstn_i ) 
+      register_o <= 0;
+    else if ( btn_is_pressed_i ) 
+      register_o <= data_i;
   end 
   
 endmodule

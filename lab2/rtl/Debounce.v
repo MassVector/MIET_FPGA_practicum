@@ -1,23 +1,23 @@
 `timescale 1ns / 1ps
 
 module Debounce(
-input         clk100_i,
-input         rstn_i,
-input         en_i, 
-output        en_down_o
+  input         clk100_i,
+  input         rstn_i,
+  input         en_i, 
+  output        en_down_o
+  );
 
-    );
-
-reg [1:0] sync;
+  reg [1:0] sync;
 
 always @( posedge clk100_i or negedge rstn_i ) begin
-  if ( !rstn_i )
+  if ( !rstn_i ) begin
     sync <= 2'b0;
+  end
   else
-    begin
-      sync[0] <= en_i;
-      sync[1] <= sync[0];
-    end
+      begin
+        sync[0] <= en_i;
+        sync[1] <= sync[0];
+      end
 end
 
 assign en_down_o = ~sync[1] & sync[0];

@@ -25,18 +25,15 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
   else begin
     if( bt_down0 ) begin
       q        <= sw_i[9:0];
-
       if( counter < 8'hFF )
         counter  <= counter + 1;
       else
-        counter  <= ~counter + 1;
-
+        counter  <= ~counter;
       if( counter1 != 8'h0 )
         counter1  <= counter1 - 1;
       else
-        counter1  <= ~counter1 - 1;
+        counter1  <= ~counter1;
     end
-
     if( bt_down2 ) begin
       counter <= 8'h0;
       counter1 <= 8'h0;
@@ -70,6 +67,7 @@ button_debounce bt0(
   .rst_i   ( key_i[1]   ),
   .clk_i   ( clk100_i   )
 );
+
 button_debounce bt2(
   .btn_i   ( !key_i[2]  ),
   .ondn_o  ( bt_down2   ),

@@ -33,20 +33,20 @@ module counter_tb(
   //RST gen
     initial begin
       key[1] <= 1'b0;
-     #(3*CLK_SEMIPERIOD+1)  key[1] <= ~key[1];
+     #(5*CLK_SEMIPERIOD+1)  key[1] <= ~key[1];
     end
     
   //EN gen
     initial begin
       key[0] <= 1'b1;
-      forever #(1.5*CLK_SEMIPERIOD+2)
+      forever #(2*CLK_SEMIPERIOD+2)
       key[0] <= ~key[0];
     end
   
   //SW gen
     initial begin
      sw [9:0]=10'd0;
-      forever #(10*CLK_SEMIPERIOD+2)
+      forever #(3*CLK_SEMIPERIOD+2)
         sw [9:0] <= $random();
     end
      

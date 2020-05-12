@@ -26,7 +26,7 @@ wire        btn2_pressed;
 
 assign ledr_o = register_data;
 
-always @( posedge clk100_i ) begin
+always @( posedge clk100_i or negedge key_i[1] ) begin
   if ( ~key_i[1] )
     btn0_sync[1:0] <= 2'b0;
   else begin
@@ -38,7 +38,7 @@ end
 assign btn0_pressed = ~btn0_sync[1] & btn0_sync[0];
 
 
-always @( posedge clk100_i) begin
+always @( posedge clk100_i or negedge key_i[1] ) begin
   if ( ~key_i[1] )
     btn2_sync[1:0] <= 2'b0;
   else begin
@@ -59,14 +59,14 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
   end
   else if ( btn0_pressed )
   begin
-      register_data <= sw_i[9:0];
-      counter_down  <= counter_down - 1;
-      counter_up    <= counter_up + 1;
+    register_data <= sw_i[9:0];
+    counter_down  <= counter_down - 1;
+    counter_up    <= counter_up + 1;
   end
   else if ( btn2_pressed )
   begin
-      counter_down <= 8'b0;
-      counter_up   <= 8'b0;
+    counter_down <= 8'b0;
+    counter_up   <= 8'b0;
   end
 end
 

@@ -14,7 +14,9 @@ module counter(
 );
   
   reg  [7:0] counter;
-
+  reg  [3:0] hex0;
+  reg  [3:0] hex1;
+  
   wire       key_pressed;
   wire       key_released;
   
@@ -26,14 +28,23 @@ module counter(
   always @( posedge clk100_i or negedge key_i[1] ) begin
     if( !key_i[1] ) begin
       counter <= 0;
+      hex0 <= 0;
+      hex1 <= 0;
       out_of_range <=0;
     end else if( signal ) begin
       if ( counter > 'd99) out_of_range <= 1'b1;
-      else  counter <= counter + 1;
+      else begin
+       counter <= counter + 1;
+       if (hex0 == 'd9) begin 
+         hex1 <= hex1 + 1;
+         hex0 <= 0;
+       end else
+         hex0 <= hex0 +1;
+      end
       if ( out_of_range ) begin
-        counter[3:0] = 'd14;
-        counter[7:4] = 'd14;
-      end   
+        hex0 = 'd14;
+        hex1 = 'd14;
+      end 
     end
   end
   
@@ -61,7 +72,7 @@ register r(
 dec_to_hex dtx0(
   .clk_i  ( clk100_i        ),
   .key_i  ( key_i     [1]   ),
-  .data_i ( counter   [3:0] ),
+  .data_i ( hex0            ),
   .data_o ( hex0_o          )
 );
 
@@ -69,7 +80,7 @@ dec_to_hex dtx0(
 dec_to_hex dtx1(
   .clk_i  ( clk100_i        ),
   .key_i  ( key_i     [1]   ),
-  .data_i ( counter   [7:4] ),
+  .data_i ( hex1            ),
   .data_o ( hex1_o          )
 );
 

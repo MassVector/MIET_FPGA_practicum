@@ -34,49 +34,34 @@ always @( posedge clk100_i or negedge key_i[1] )
       register <= sw_i;
   end
 
+
 // hex counter logic
 localparam OVERLOAD_VALUE = 10;
-reg [7:0] reset_counter;
+reg [7:0] hex_counter;
 reg [3:0] first_digit;
 reg [3:0] second_digit;
 always @( posedge clk100_i or negedge key_i[1] ) 
   begin
-    if ( ~key_i[1] )
+    if ( ~key_i[1] ) 
       begin
-        first_digit   <= 4'd0;
-        second_digit  <= 4'd0;
-        reset_counter <= 8'd0;
+        hex_counter  <= 8'd0;
+        first_digit  <= 4'd0;
+        second_digit <= 4'd0;
       end
     else if ( key_was_pressed )
       begin
-        if ( reset_counter == 8'd255 )
+        hex_counter = hex_counter + 1;
+        if ( hex_counter > 99 ) 
           begin
-            first_digit   <= 4'd0;
-            second_digit  <= 4'd0;
-            reset_counter <= reset_counter + 1;
+             // overload state ( EE )
+            first_digit  <= OVERLOAD_VALUE;
+            second_digit <= OVERLOAD_VALUE;
           end
-        else if ( reset_counter < 8'd99 )
+        else
           begin
-            // x9 reached 
-            if ( first_digit > 4'd8 )
-              begin
-                first_digit   <= 4'd0;  
-                second_digit  <= second_digit + 1;
-                reset_counter <= reset_counter + 1;
-              end
-            else
-              begin
-                first_digit   <= first_digit + 1;
-                reset_counter <= reset_counter + 1;
-              end
+            first_digit  <= hex_counter % 4'd10;
+            second_digit <= ( hex_counter % 8'd100 ) / 4'd10;
           end
-      else
-        begin
-          // overload state ( EE )
-          first_digit   <= OVERLOAD_VALUE;
-          second_digit  <= OVERLOAD_VALUE;
-          reset_counter <= reset_counter + 1;
-        end
       end
   end
 

@@ -4,7 +4,7 @@
 module counter(
   input            clk100_i,
 
-  input    [9:0]   sw_i,
+  input    [10:0]   sw_i,
   input    [1:0]   key_i,
 
   output   [9:0]   led_o,
@@ -41,28 +41,23 @@ always @( posedge clk100_i or posedge key_i[1] )
     if ( key_i[1] ) ledr <= 0;
     else if ( key_p )
       begin
-      ledr <= sw_i;  
-      //draft for individual task \/ \/ \/
-      
-     //   for ( i = 4'b0 ; ( i < 10 ) && ( ~one ) ; i = i + 1'b1 )
-         // one <= sw_i[i]; //can you say, why one dont became 1, in tb sw containe some 1 in itself
-        //  if( one ) ledr[i] <= sw_i[i];
+        ledr <= sw_i[9:0] & (-(sw_i[9:0])); // mark the righetest 1 in sw_i
       end
 end
 
 //counter and stuff
 reg  [7:0] counter;
-reg        sw_event = 1; // dont have exersices
 
 always @(posedge clk100_i or negedge key_i[1])
   begin
     if( key_i[1] ) counter <= 0;
-    else if ( key_p && sw_event ) counter <= counter + 1;
+    else if ( key_p && sw_i[10] ) counter <= counter + 1;
+    else if ( key_p && ~(sw_i[10]) ) counter <= counter - 1;
   end
 
 reg   [3:0]  show;
 reg   [6:0]  hex;
-reg   [6:0]  meh0;    
+reg   [6:0]  meh0;
 reg   [6:0]  meh1;
 
 assign hex0_o = meh0;

@@ -14,7 +14,7 @@ localparam CLK_SEMI       =     ( 1000 / CLK_FREQ_MHZ) / 2;
 
     reg         clk;
 
-    reg   [9:0] sw;
+    reg   [10:0] sw;
     reg   [1:0] key;
 
     wire  [9:0] led;
@@ -27,7 +27,7 @@ counter BUT(
   .key_i      (  key  ),
   .led_o      (  led  ),
   .hex0_o     (  hex0 ),
-  .hex1_o     (  hex1 ) 
+  .hex1_o     (  hex1 )
  );
 
 initial begin
@@ -52,6 +52,7 @@ end
 
 initial begin
 sw[9:0] = 10'b0100000010;
+sw[10] = 0;
 repeat(50)begin
     key[0] = 0;
     #(CLK_SEMI*7);

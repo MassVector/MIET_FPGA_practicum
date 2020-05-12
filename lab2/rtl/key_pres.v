@@ -16,7 +16,7 @@ always @( posedge clk100_i or negedge rstn_i ) begin
   if ( !rstn_i )
     key_check <= 2'b0;
   else
-   begin
+    begin
       key_check[0] <= ev_i;
       key_check[1] <= key_check[0];
     end

@@ -36,11 +36,12 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
 assign ledr_o = Q;
 
 dc_hex dec0(
-  .in(counter[7:4]),
+  .in(counter[3:0]),
   .out(hex0_o     ));
  
 dc_hex dec1
-( .in(counter[3:0]),
+( .in(counter[7:4]),
   .out(hex1_o     ));
  
 endmodule
+

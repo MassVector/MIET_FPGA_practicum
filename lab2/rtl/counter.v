@@ -37,12 +37,12 @@ module counter(
   assign ledr_o = register;
   
   dectohex dec0
-    ( .dec(cntr[7:4]),
+  ( .dec(cntr[3:0]),
       .hex(hex0_o)
     );
     
   dectohex dec1
-    ( .dec(cntr[3:0]),
+  ( .dec(cntr[7:4]),
       .hex(hex1_o)
     );
     

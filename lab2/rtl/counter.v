@@ -34,12 +34,12 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
       if( counter < 8'hFF )
         counter  <= counter + 1;
       else
-        counter  <= ~counter + 1;
+        counter  <= ~counter;
 
       if( counter1 != 8'h0 )
         counter1  <= counter1 - 1;
       else
-        counter1  <= ~counter1 - 1;     
+        counter1  <= ~counter1;     
     end
   end
 end
@@ -81,5 +81,5 @@ dec_hex dec0
 dec_hex dec1(
   .in(switch[7:4]),
   .out(hex1_o     ));
-   
+
 endmodule

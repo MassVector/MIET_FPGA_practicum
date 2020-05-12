@@ -28,7 +28,7 @@ assign hex1_o = hex1;
 assign ledr_o = data;
 
 always @( posedge clk100_i ) begin
-  button[0] <= !key_i;
+  button[0] <= key_i[0];
   button[1] <= button[0];
   button[2] <= button[1];
 end

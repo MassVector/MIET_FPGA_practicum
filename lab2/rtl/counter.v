@@ -15,8 +15,11 @@ module counter(
 reg  [2:0]  sync;
 wire        key_p;
 
-always @( posedge clk100_i )
+always @( posedge clk100_i or negedge key_i[1])
   begin
+    if( ~key_i[1])
+      sync <= 3'b0;
+    else
     sync[0] <= ~key_i[0];
     sync[1] <= sync[0];
     sync[2] <= sync[1];
@@ -36,15 +39,10 @@ reg   [3:0] i = 4'b0 ;
 
 always @( posedge clk100_i or posedge key_i[1] )
   begin
-    if ( key_i[1] ) ledr <= 0;
+    if ( ~(key_i[1]) ) ledr <= 0;
     else if ( key_p )
       begin
       ledr <= sw_i;
-      //draft for individual task \/ \/ \/
-
-     //   for ( i = 4'b0 ; ( i < 10 ) && ( ~one ) ; i = i + 1'b1 )
-         // one <= sw_i[i]; //can you say, why one dont became 1, in tb sw containe some 1 in itself
-        //  if( one ) ledr[i] <= sw_i[i];
       end
 end
 
@@ -54,7 +52,7 @@ reg        sw_event = 1; // dont have exersices
 
 always @(posedge clk100_i or negedge key_i[1])
   begin
-    if( key_i[1] ) counter <= 0;
+    if( ~(key_i[1]) ) counter <= 0;
     else if ( key_p && sw_event ) counter <= counter + 1;
   end
 

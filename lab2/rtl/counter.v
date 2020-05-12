@@ -36,7 +36,7 @@ end
   .clk100_i   ( clk100_i       ),
   .rstn_i     ( key_i    [1]   ),
   .sw_i       ( sw_i           ),
-  .key_i      ( key_i    [0]   ),
+  .key_i      ( bwp            ),
   .led_o      ( ledr_o         )
   );
   

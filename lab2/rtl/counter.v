@@ -51,14 +51,14 @@ end
 
 assign ledr_o = q;
 
-dec_hex dec0(
+dec_hex dec1(
   .in ( switch[7:4] ),
-  .out( hex0_o      )
+  .out( hex1_o      )
 );
 
-dec_hex dec1(
+dec_hex dec0(
   .in ( switch[3:0] ),
-  .out( hex1_o      )
+  .out( hex0_o      )
 );
 
 button_debounce bt0(

@@ -2,13 +2,14 @@
 
 
 module counter(
-    input clk100_i,
-    input rstn_i,
-    input [9:0] sw_i,
-    input [1:0] key_i,
-    output [9:0] ledr_o,
-    output [6:0] hex1_o,
-    output [6:0] hex0_o
+    input         clk100_i,
+    input         rstn_i,
+    input  [9:0]  sw_i,
+    input  [1:0]  key_i,
+
+    output [9:0]  ledr_o,
+    output [6:0]  hex1_o,
+    output [6:0]  hex0_o
 );
 
 
@@ -27,11 +28,11 @@ always @( posedge clk100_i or negedge key_i[1])
 
 assign key_p = ~sync[2] & sync[1];
 
-//se to led and stuff
+//sw_i to led and stuff
 reg     [9:0]     ledr = 10'b0000000000;
 reg               one = 1'b0;
 
-// dont work coz i dont know
+// magic
 assign ledr_o = ledr;
 
 reg   [3:0] i = 4'b0 ;
@@ -56,50 +57,57 @@ always @(posedge clk100_i or negedge key_i[1])
     else if ( key_p && sw_event ) counter <= counter + 1;
   end
 
-reg   [3:0]  show;
-reg   [6:0]  hex;
-reg   [6:0]  meh0;
-reg   [6:0]  meh1;
 
-assign hex0_o = meh0;
-assign hex1_o = meh1;
+  //hex section
 
-//switching display
-always @( posedge clk100_i ) begin
-  show <= counter[3:0];
-  meh0 <= hex;
 
-end
-// such lot of extra variables coz code was written for Artix PLD
-always @( negedge clk100_i ) begin
-  show <= counter[7:4];
-  meh1 <= hex;
-end
+  reg   [6:0]  meh0;
+  reg   [6:0]  meh1;
 
-reg     [6:0]  hex;
-//assign hex_o = hex;
+  assign hex0_o = meh0;
+  assign hex1_o = meh1;
 
-always @ (*) begin
-  case (show)
-    4'h0 : hex = 7'b1000000;
-    4'h1 : hex = 7'b1111001;
-    4'h2 : hex = 7'b0100100;
-    4'h3 : hex = 7'b0110000;
-    4'h4 : hex = 7'b0011001;
-    4'h5 : hex = 7'b0010010;
-    4'h6 : hex = 7'b0000010;
-    4'h7 : hex = 7'b1111000;
-    4'h8 : hex = 7'b0010000;
-    4'h9 : hex = 7'b0010000;
-    4'ha : hex = 7'b0001000;
-    4'hb : hex = 7'b0000011;
-    4'hc : hex = 7'b1000110;
-    4'hd : hex = 7'b0100001;
-    4'he : hex = 7'b0000110;
-    4'hf : hex = 7'b0001110;
-    default: hex = 7'b1010101;
-  endcase
-end
+  always @ (*) begin
+    case (counter[3:0])
+      4'h0 : meh0 = 7'b1000000;
+      4'h1 : meh0 = 7'b1111001;
+      4'h2 : meh0 = 7'b0100100;
+      4'h3 : meh0 = 7'b0110000;
+      4'h4 : meh0 = 7'b0011001;
+      4'h5 : meh0 = 7'b0010010;
+      4'h6 : meh0 = 7'b0000010;
+      4'h7 : meh0 = 7'b1111000;
+      4'h8 : meh0 = 7'b0010000;
+      4'h9 : meh0 = 7'b0010000;
+      4'ha : meh0 = 7'b0001000;
+      4'hb : meh0 = 7'b0000011;
+      4'hc : meh0 = 7'b1000110;
+      4'hd : meh0 = 7'b0100001;
+      4'he : meh0 = 7'b0000110;
+      4'hf : meh0 = 7'b0001110;
+      default: meh0 = 7'b1010101;
+    endcase
+
+    case (counter[7:4])
+      4'h0 : meh1 = 7'b1000000;
+      4'h1 : meh1 = 7'b1111001;
+      4'h2 : meh1 = 7'b0100100;
+      4'h3 : meh1 = 7'b0110000;
+      4'h4 : meh1 = 7'b0011001;
+      4'h5 : meh1 = 7'b0010010;
+      4'h6 : meh1 = 7'b0000010;
+      4'h7 : meh1 = 7'b1111000;
+      4'h8 : meh1 = 7'b0010000;
+      4'h9 : meh1 = 7'b0010000;
+      4'ha : meh1 = 7'b0001000;
+      4'hb : meh1 = 7'b0000011;
+      4'hc : meh1 = 7'b1000110;
+      4'hd : meh1 = 7'b0100001;
+      4'he : meh1 = 7'b0000110;
+      4'hf : meh1 = 7'b0001110;
+      default: meh1 = 7'b1010101;
+    endcase
+  end
 
 
 endmodule

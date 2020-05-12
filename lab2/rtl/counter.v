@@ -19,7 +19,7 @@ module counter (
   
   // Counter and register data
   reg   [15:0]  counter_data;
-  reg    [9:0]  register_data;
+  reg   [ 9:0]  register_data;
   
   // HEX'es data
   wire   [6:0]  hex3_data;
@@ -37,7 +37,7 @@ module counter (
     key_sync_data[2] <=  key_sync_data[1];
   end
   
-  assign keypress0_event_data = ~key_sync_data[2] & key_sync_data[1];
+  assign keypress0_event_data = key_sync_data[1] & ~key_sync_data[2];
   
   always @( posedge clk100_i or negedge key_i[1] ) begin
     if ( ~key_i[1] ) begin
@@ -45,8 +45,8 @@ module counter (
       register_data <= 0;
     end
     else if ( keypress0_event_data ) begin
-      counter_data  <= counter_data + 1;
-      register_data <= ( sw_i + 1 ) ^  ( sw_i & ( sw_i + 1 ) );
+      counter_data  <=  counter_data + 1;
+      register_data <= ~sw_i & ( sw_i + 1 );
     end
   end
   
@@ -58,20 +58,20 @@ module counter (
   
   // Decodes data for output to HEX2
   decoder decoder2(
-    .counter_i             ( counter_data  [11:8] ),
-    .hex_o                 ( hex2_data            )
+    .counter_i             ( counter_data   [11:8] ),
+    .hex_o                 ( hex2_data             )
   );
   
   // Decodes data for output to HEX1
   decoder decoder1(
-    .counter_i             ( counter_data  [7:4] ),
-    .hex_o                 ( hex1_data           )
+    .counter_i             ( counter_data    [7:4] ),
+    .hex_o                 ( hex1_data             )
   );
   
   // Decodes data for output to HEX0
   decoder decoder0(
-    .counter_i             ( counter_data  [3:0] ),
-    .hex_o                 ( hex0_data           )
+    .counter_i             ( counter_data    [3:0] ),
+    .hex_o                 ( hex0_data             )
   );
   
   // Data output to LEDR and HEX'es
@@ -81,4 +81,5 @@ module counter (
   assign hex2_o = hex2_data;
   assign hex1_o = hex1_data;
   assign hex0_o = hex0_data;
+  
 endmodule

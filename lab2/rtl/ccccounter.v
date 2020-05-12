@@ -21,10 +21,10 @@ end
 
 dec_hex dec0
 (.in  ( counter[7:4] ),
- .out ( hex0_o       ));
+ .out ( hex1_o       ));
 
 dec_hex dec1
 (.in  ( counter[3:0] ),
- .out ( hex1_o       ));
+ .out ( hex0_o       ));
 
 endmodule

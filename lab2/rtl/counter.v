@@ -12,22 +12,12 @@ module counter(
   reg [9:0] rg10;
   reg [7:0] counter;
   
-  reg [2:0] key_i_0_syncroniser;
-  reg key_i_0_was_pressed;
-
-  always @(posedge clk100_i) begin
-    key_i_0_syncroniser[0] <= key_i[0];
-    key_i_0_syncroniser[1] <= key_i_0_syncroniser[0];
-    key_i_0_syncroniser[2] <= key_i_0_syncroniser[1];
- 
-  assign key_i_0_was_pressed = ~key_i_0_syncroniser[2] & key_i_0_syncroniser[1];
-  end
   
   reg [2:0] btn_sync;
   wire      btn_pressed;
      
      
-  always@ ( posedge clk100_i or negedge key_i[1] ) begin
+  always @ ( posedge clk100_i or negedge key_i[1] ) begin
   
     if ( !key_i[1] )
     begin
@@ -41,17 +31,19 @@ module counter(
   
   assign  ledr_o =  rg10;
   
-  always@(posedge clk100_i or negedge key_i[1]) begin
-      btn_sync[0] <= ~key_i[0];
-      btn_sync[1] <= btn_sync[0];
-      btn_sync[2] <= btn_sync[1];
-    end
+  always @ ( posedge clk100_i ) begin
+    btn_sync[0] <= ~key_i[0];
+    btn_sync[1] <= btn_sync[0];
+    btn_sync[2] <= btn_sync[1];
+  end
   
   assign btn_pressed = ~btn_sync[2] & btn_sync[1];
 
-  always @(posedge clk100_i or negedge key_i[1]) begin
-   if ( !key_i[1] ) counter <= 0;
-   else if ( btn_pressed ) counter <= counter + 1;
+  always @ ( posedge clk100_i or negedge key_i[1] ) begin
+    if ( !key_i[1] ) 
+      counter <= 0;
+    else if ( btn_pressed ) 
+      counter <= counter + 1;
   end
  
   

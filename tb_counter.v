@@ -35,7 +35,7 @@ initial begin
   #(2*CLK_SEMIPERIOD)
   key_i [1] = 1'b1;
     forever begin
-      #(22*CLK_SEMIPERIOD);
+        #(240*CLK_SEMIPERIOD);
       key_i[1] = ~key_i[1];
       #(3*CLK_SEMIPERIOD)
       key_i[1] = ~key_i[1];
@@ -45,7 +45,7 @@ end
 initial begin
   key_i [0] = 1'b1;
     forever begin
-      #(7*CLK_SEMIPERIOD);
+        #(3*CLK_SEMIPERIOD);
       key_i[0] = ~key_i[0];
     end
 end

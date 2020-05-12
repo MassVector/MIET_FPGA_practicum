@@ -16,7 +16,7 @@ wire  [6:0]  hex1;
 wire  [6:0]  hex2;
 wire  [6:0]  hex3;
 
-counter DUT   (
+counter DUT  (
   .clk100_i  (  clk100_i ),
   .sw_i      (  sw       ),
   .ledr_o    (  ledr     ),

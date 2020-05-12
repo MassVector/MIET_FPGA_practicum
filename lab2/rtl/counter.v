@@ -24,22 +24,22 @@ key_debouncer bt(
 
 always @( posedge clk100_i or negedge key_i[1] ) begin
   if  ( !key_i[1] ) begin
-    q       <= 10'b0;
+    q        <= 10'b0;
     counter  <= 8'h0;
     counter1 <= 8'h0; 
   end
   else begin
     if ( bt_down ) begin
-      q       <= sw_i;
+      q <= sw_i;
       if( counter < 8'hFF )
-        counter  <= counter + 1;
+        counter <= counter + 1;
       else
-        counter  <= ~counter;
+        counter <= ~counter;
 
       if( counter1 != 8'h0 )
-        counter1  <= counter1 - 1;
+        counter1 <= counter1 - 1;
       else
-        counter1  <= ~counter1;     
+        counter1 <= ~counter1;     
     end
   end
 end
@@ -76,10 +76,10 @@ assign ledr_o = q;
 
 dec_hex dec0
 ( .in(switch[3:0]),
-  .out(hex0_o     ));
+  .out(hex0_o    ));
 
 dec_hex dec1(
   .in(switch[7:4]),
-  .out(hex1_o     ));
+  .out(hex1_o    ));
 
 endmodule

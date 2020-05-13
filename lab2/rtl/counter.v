@@ -25,7 +25,6 @@ key_debouncer bt(
 
 always @( posedge clk100_i or negedge key_i[1] ) begin
   if  ( !key_i[1] ) begin
-    sw_event           <= 10'b0;
     counter_increment  <= 8'h0;
     counter_decrement  <= 8'h0; 
   end

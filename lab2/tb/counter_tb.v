@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 module counter_tb(
 
-    );
+  );
     
   localparam CLK_FREQ_MHZ   = 100;
   localparam CLK_SEMIPERIOD = ( 1000 / CLK_FREQ_MHZ) / 2; 
@@ -24,13 +24,9 @@ module counter_tb(
   );
   
   initial begin
-    
-  end
-  
-  initial begin
     clk100_i = 1'b1;
     forever begin
-        #CLK_SEMIPERIOD clk100_i=~clk100_i;
+      #CLK_SEMIPERIOD clk100_i=~clk100_i;
     end
   end
   
@@ -38,12 +34,12 @@ module counter_tb(
     sw_i [9:0] = 10'b0;
     key_i[0]   = 1'b0;
     repeat(40)begin
-        #(CLK_SEMIPERIOD - 1);
-        sw_i[9:0] = $random();
-        #(5*CLK_SEMIPERIOD);
-        key_i[0] = 1'b1;
-        #(10*CLK_SEMIPERIOD);
-        key_i[0] = 1'b0;
+      #(CLK_SEMIPERIOD - 1);
+      sw_i[9:0] = $random();
+      #(5*CLK_SEMIPERIOD);
+      key_i[0] = 1'b1;
+      #(10*CLK_SEMIPERIOD);
+      key_i[0] = 1'b0;
     end
   end
   

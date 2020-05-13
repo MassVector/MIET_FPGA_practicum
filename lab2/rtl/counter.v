@@ -9,8 +9,9 @@ module counter(
   output [6:0]  hex1_o,
   output [6:0]  hex0_o);
 
-reg  [7:0] counter;
-reg  [7:0] counter1;
+reg  [7:0] counter_plus;
+reg  [7:0] counter_minus;
+wire [7:0] switch;
 reg  [9:0] q;
 
 wire bt0_down;
@@ -18,36 +19,24 @@ wire bt2_down;
 
 always @( posedge clk100_i or negedge key_i[1] ) begin
   if( !key_i[1] ) begin
-    q        <= 10'b0;
-    counter  <= 8'h0;
-    counter1 <= 8'h0;
+    q             <= 10'b0;
+    counter_plus  <= 8'h0;
+    counter_minus <= 8'h0;
   end
   else begin
     if( bt_down0 ) begin
-      q <= sw_i[9:0];
-      if( counter < 8'hFF )
-        counter <= counter + 1;
-      else
-        counter <= ~counter;
-      if( counter1 != 8'h0 )
-        counter1 <= counter1 - 1;
-      else
-        counter1 <= ~counter1;
+      q             <= sw_i[9:0];
+      counter_plus  <= counter_plus + 1;
+      counter_minus <= counter_minus - 1;
     end
     if( bt_down2 ) begin
-      counter  <= 8'h0;
-      counter1 <= 8'h0;
+      counter_plus  <= 8'h0;
+      counter_minus <= 8'h0;
     end
   end
 end
 
-reg  [7:0] switch;
-always @( * ) begin
-  if( sw_i[11] )
-    switch <= counter1;
-  else
-    switch <= counter;
-end
+assign switch = (sw_i[11]) ? (counter_minus) : (counter_plus);
 
 assign ledr_o = q;
 

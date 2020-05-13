@@ -10,7 +10,6 @@ module counter(
   output  [6:0] hex1_o,
   output  [6:0] hex0_o
   
-  
 );
   
   reg  [7:0] counter;
@@ -20,32 +19,36 @@ module counter(
   wire       key_pressed;
   wire       key_released;
   
-  reg        out_of_range;
   wire       signal;
   
   assign signal = key_released;
   
   always @( posedge clk100_i or negedge key_i[1] ) begin
-    if( !key_i[1] ) begin
-      counter <= 0;
-      hex0 <= 0;
-      hex1 <= 0;
-      out_of_range <=0;
-    end else if( signal ) begin
-      if ( counter > 'd99) out_of_range <= 1'b1;
-      else begin
-       counter <= counter + 1;
-       if (hex0 == 'd9) begin 
-         hex1 <= hex1 + 1;
-         hex0 <= 0;
-       end else
-         hex0 <= hex0 +1;
+    if( !key_i[1] ) 
+      begin
+        counter <= 0;
+        hex0    <= 0;
+        hex1    <= 0;
       end
-      if ( out_of_range ) begin
-        hex0 = 'd14;
-        hex1 = 'd14;
-      end 
-    end
+    else if( signal ) 
+      begin
+        if ( counter > 'd99 ) 
+          begin
+            hex0 <= 'd14;
+            hex1 <= 'd14;
+          end
+        else 
+          begin
+            counter <= counter + 1;
+            if ( hex0 == 'd9 ) 
+              begin 
+                hex1 <= hex1 + 1;
+                hex0 <= 0;
+              end
+            else
+              hex0 <= hex0 + 1;
+          end
+      end
   end
   
   

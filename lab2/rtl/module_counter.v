@@ -13,11 +13,11 @@ parameter DATA_WIDTH = 8
 reg      [ DATA_WIDTH-1:0 ]   data;
 
 
-always @( negedge arst_i) begin
-  data <= { DATA_WIDTH { 1'b0 } };
-end
- always @( negedge en_i) begin
-  data <= data + 1;
+always @( posedge clk_i or negedge arst_i) begin
+  if ( ~arst_i ) 
+    data <= { DATA_WIDTH { 1'b0 } };
+  else if ( ~en_i )
+    data <= data + 1;
 end
 
 assign data_o = data;

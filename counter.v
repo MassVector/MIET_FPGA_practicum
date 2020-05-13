@@ -28,7 +28,7 @@ assign hex1_o = hex1;
 assign ledr_o = data;
 
 always @( posedge clk100_i ) begin
-  button[0] <= key_i[0];
+  button[0] <= !key_i[0];
   button[1] <= button[0];
   button[2] <= button[1];
 end
@@ -38,16 +38,24 @@ assign press_1 = key_i[1];
 
 always @( posedge clk100_i or negedge press_1 ) begin
   if ( !press_1 ) begin
-    data    <=  10'b0;
     counter <=  8'b0;
   end
   else 
     if ( press_0 ) begin
-      data    <=  sw_i;
       counter <=  counter + 1;
     end
 end
 
+always @( negedge press_1 or negedge key_i[0] ) begin
+  if ( !press_1 ) begin 
+    data    <=  10'b0;
+  end
+  else  
+    if ( !key_i[0] ) begin
+      data    <=  sw_i;
+    end
+end
+    
 always @( * ) begin
   case ( counter[3:0] )
     4'h0:  hex0 = 7'b1000000;

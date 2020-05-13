@@ -13,6 +13,7 @@ module counter(
   reg [9:0] led;
   reg [7:0] counter_i;
   reg [6:0] out;
+  reg [1:0] counter_for_key;
   
   assign hex    = out;
   assign ledr_o = led;
@@ -38,9 +39,17 @@ module counter(
   always @( posedge clk100_i or posedge rstn_i )
     begin
       if ( rstn_i == 0 )
-        counter_i <= 8'd0;
+        begin
+          counter_i <= 8'b0010_1100;
+          counter_for_key <= 8'd0;
+        end
       else if ( key )
-        counter_i = counter_i + 1;
+        counter_for_key = counter_for_key + 1;
+      else if ( counter_for_key == 2'b11 )
+        begin
+          counter_i = counter_i << 1;
+          counter_for_key <= 8'd0;
+        end
     end
   
   hex hex0

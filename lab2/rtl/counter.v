@@ -16,7 +16,7 @@ wire key_was_pressed;
 
 always @( posedge clk100_i ) 
   begin
-    button_syncroniser[0] <= ~key_i[0];
+    button_syncroniser[0] <= key_i[0];
     button_syncroniser[1] <= button_syncroniser[0];
     button_syncroniser[2] <= button_syncroniser[1];
   end
@@ -34,23 +34,44 @@ always @( posedge clk100_i or negedge key_i[1] )
       register <= sw_i;
   end
 
+
 // hex counter logic
+localparam OVERLOAD_VALUE = 10;
 reg [7:0] hex_counter;
+reg [3:0] first_digit;
+reg [3:0] second_digit;
 always @( posedge clk100_i or negedge key_i[1] ) 
   begin
     if ( ~key_i[1] ) 
-      hex_counter <= 8'd0;
+      begin
+        hex_counter  <= 8'd0;
+        first_digit  <= 4'd0;
+        second_digit <= 4'd0;
+      end
     else if ( key_was_pressed )
-      hex_counter = hex_counter + 1;
+      begin
+        hex_counter = hex_counter + 1;
+        if ( hex_counter > 99 ) 
+          begin
+             // overload state ( EE )
+            first_digit  <= OVERLOAD_VALUE;
+            second_digit <= OVERLOAD_VALUE;
+          end
+        else
+          begin
+            first_digit  <= hex_counter % 4'd10;
+            second_digit <= hex_counter / 4'd10;
+          end
+      end
   end
 
 hex_decoder dec1 ( 
-  .data_i( hex_counter[7:4] ),
+  .data_i( second_digit  ),
   .data_o( hex1_o       )
   );
   
 hex_decoder dec0 ( 
-  .data_i( hex_counter[3:0] ),
+  .data_i( first_digit ),
   .data_o( hex0_o       )
   );
 

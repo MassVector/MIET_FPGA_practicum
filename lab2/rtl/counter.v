@@ -13,6 +13,13 @@ module counter(
   
   wire btn_was_pressed;
   
+  keypress kp(
+    .clk_i             ( clk100_i            ),
+    .rstn_i            ( key_i           [1] ),
+    .en_i              ( key_i           [0] ),
+    .btn_was_pressed_o ( btn_was_pressed     ) 
+  );
+ 
   register r(
     .data_i          ( sw_i            [9:0] ),
     .clk_i           ( clk100_i              ),
@@ -20,13 +27,6 @@ module counter(
     .en_i            ( key_i           [0]   ), 
     .data_o          ( ledr_o          [9:0] ),
     .btn_was_pressed ( btn_was_pressed       )
-  );
- 
-  keypress kp(
-    .clk_i             ( clk100_i            ),
-    .rstn_i            ( key_i           [1] ),
-    .en_i              ( key_i           [0] ),
-    .btn_was_pressed_o ( btn_was_pressed     ) 
   );
   
   reg [9:0] counter;

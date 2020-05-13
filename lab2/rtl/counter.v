@@ -8,21 +8,20 @@ module counter(
   
   output     [9:0] ledr_o,
   output reg [6:0] hex0_o,
-  output reg [6:0] hex1_o,
-  output reg [6:0] hex2_o,
-  output reg [6:0] hex3_o
-  );
-  
-  register r(
-    .data_i ( sw_i      [9:0] ),
-    .clk_i  ( clk100_i        ),
-    .rstn_i ( key_i     [1]   ),
-    .en_i   ( key_i     [0]   ), 
-    .data_o ( ledr_o    [9:0] )
+  output reg [6:0] hex1_o
   );
   
   wire btn_was_pressed;
   
+  register r(
+    .data_i          ( sw_i            [9:0] ),
+    .clk_i           ( clk100_i              ),
+    .rstn_i          ( key_i           [1]   ),
+    .en_i            ( key_i           [0]   ), 
+    .data_o          ( ledr_o          [9:0] ),
+    .btn_was_pressed ( btn_was_pressed       )
+  );
+ 
   keypress kp(
     .clk_i             ( clk100_i            ),
     .rstn_i            ( key_i           [1] ),
@@ -30,22 +29,12 @@ module counter(
     .btn_was_pressed_o ( btn_was_pressed     ) 
   );
   
-  reg [15:0] counter;
-  reg       sw_event; 
+  reg [9:0] counter;
  
-  always @( sw_i ) begin
-    if ( ( sw_i[0] + sw_i[1] + sw_i[2] + sw_i[3] 
-         + sw_i[4] + sw_i[5] + sw_i[6] + sw_i[7] 
-         + sw_i[8] + sw_i[9] )> 4'd3 )  
-      sw_event <= 1'b1; 
-    else 
-      sw_event <= 1'b0;
-  end 
-  
   always @( posedge clk100_i or negedge key_i[1] )begin
     if( !key_i[1] ) 
       counter <= 0;
-    else if( btn_was_pressed & sw_event) 
+    else if( btn_was_pressed ) 
       counter <= counter + 1;
   end
             
@@ -91,46 +80,5 @@ module counter(
     endcase
   end  
   
-  always @( * ) begin
-    case( counter [11:8] )
-      4'd0:   hex2_o = 7'b100_0000;
-      4'd1:   hex2_o = 7'b111_1001;
-      4'd2:   hex2_o = 7'b010_0100;
-      4'd3:   hex2_o = 7'b011_0000;
-      4'd4:   hex2_o = 7'b001_1001;
-      4'd5:   hex2_o = 7'b001_0010;
-      4'd6:   hex2_o = 7'b000_0010;
-      4'd7:   hex2_o = 7'b111_1000;
-      4'd8:   hex2_o = 7'b000_0000;
-      4'd9:   hex2_o = 7'b001_0000;
-      4'd10:  hex2_o = 7'b000_1000;
-      4'd11:  hex2_o = 7'b000_0011;
-      4'd12:  hex2_o = 7'b100_0110;
-      4'd13:  hex2_o = 7'b010_0001;
-      4'd14:  hex2_o = 7'b000_0110;
-      4'd15:  hex2_o = 7'b000_1110; 
-    endcase
-  end 
-  
-  always @( * ) begin
-    case( counter [15:12] )
-      4'd0:   hex3_o = 7'b100_0000;
-      4'd1:   hex3_o = 7'b111_1001;
-      4'd2:   hex3_o = 7'b010_0100;
-      4'd3:   hex3_o = 7'b011_0000;
-      4'd4:   hex3_o = 7'b001_1001;
-      4'd5:   hex3_o = 7'b001_0010;
-      4'd6:   hex3_o = 7'b000_0010;
-      4'd7:   hex3_o = 7'b111_1000;
-      4'd8:   hex3_o = 7'b000_0000;
-      4'd9:   hex3_o = 7'b001_0000;
-      4'd10:  hex3_o = 7'b000_1000;
-      4'd11:  hex3_o = 7'b000_0011;
-      4'd12:  hex3_o = 7'b100_0110;
-      4'd13:  hex3_o = 7'b010_0001;
-      4'd14:  hex3_o = 7'b000_0110;
-      4'd15:  hex3_o = 7'b000_1110; 
-    endcase
-  end
   
 endmodule

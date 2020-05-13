@@ -37,23 +37,8 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
   end
 end
 
-reg  [9:0]  mask;
-reg  [3:0]  i;
-reg         event_pass;
-always @( sw_i ) begin
-  sw_event   = sw_i;
-  event_pass = 1'b0;
-  mask       = 10'b0000000001;
-  for ( i = 4'b0 ; i < 4'b1010; i = i + 1'b1 ) begin
-    if( ( ~sw_event & mask ) != 10'b0  ) begin
-      sw_event   = mask;
-      i          = 4'b1010;
-      event_pass = 1'b1;
-    end
-    mask = mask << 1;
-  end
-  if( event_pass != 1'b1 )
-    sw_event = 10'b0; 
+always @( * ) begin
+  sw_event = ~sw_i[9:0] & ( sw_i[9:0] + 1 );
 end
 
 wire  [7:0] switch;

@@ -14,7 +14,7 @@ parameter DATA_WIDTH = 10
 
 reg      [DATA_WIDTH-1:0]   data;
 
-always @( posedge clk_i or negedge arst_i) begin
+always @( posedge clk_i or negedge arst_i ) begin
   if ( ~arst_i ) 
     data <= { DATA_WIDTH { 1'b0 } };
   else if ( ~en_i )

@@ -16,21 +16,29 @@ reg      [6:0]   hex0;
 
 wire     [7:0]   data_count;
 wire     [9:0]   data_reg;
+wire             press;
 
 module_counter u1(
   .clk_i     ( clk100_i   ),
-  .en_i      ( key_i[0]   ),
+  .en_i      ( ~press   ),
   .arst_i    ( key_i[1]   ),
   .data_o    ( data_count )
 );
 
 module_register u2(
   .clk_i     ( clk100_i   ),
-  .en_i      ( key_i[0]   ),
+  .en_i      ( ~press      ),
   .arst_i    ( key_i[1]   ),
   .data_i    ( sw_i[9:0]  ),
   .data_o    ( data_reg   )
 );
+
+Button u3(
+  .clk100_i   ( clk100_i  ),
+  .arstn_i    ( key_i [1] ),
+  .en_i       ( key_i [0] ),
+  .en_down_o  ( press     ) 
+  );
 
 always @(*) begin
   case (data_count[7:4])

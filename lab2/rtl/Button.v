@@ -15,7 +15,7 @@ always @( posedge clk100_i ) begin
   sync[2] <= sync[1];
 end
 
-assign en_down_o = ~sync[2] & sync[1];
+assign en_down_o = sync[2] & ~sync[1];
 
 
 endmodule

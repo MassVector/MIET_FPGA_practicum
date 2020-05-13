@@ -20,14 +20,14 @@ wire             press;
 
 module_counter u1(
   .clk_i     ( clk100_i   ),
-  .en_i      ( ~press   ),
+  .en_i      ( press   ),
   .arst_i    ( key_i[1]   ),
   .data_o    ( data_count )
 );
 
 module_register u2(
   .clk_i     ( clk100_i   ),
-  .en_i      ( ~press      ),
+  .en_i      ( press      ),
   .arst_i    ( key_i[1]   ),
   .data_i    ( sw_i[9:0]  ),
   .data_o    ( data_reg   )

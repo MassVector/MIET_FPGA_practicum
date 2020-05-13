@@ -10,11 +10,15 @@ module register(
   output reg [9:0]  data_o       
   );
   
+  wire [9:0] res;
+  
+  assign res = data_i & ( - data_i );
+  
   always @( posedge clk_i or negedge rstn_i ) begin
     if ( !rstn_i ) 
       data_o <= 0;
     else if ( btn_was_pressed ) 
-      data_o <= data_i;
+      data_o <= res;
   end 
  
 endmodule

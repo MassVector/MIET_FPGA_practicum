@@ -45,7 +45,7 @@ end
 initial begin
   key_i [0] = 1'b1;
     forever begin
-        #(3*CLK_SEMIPERIOD);
+        #(5*CLK_SEMIPERIOD);
       key_i[0] = ~key_i[0];
     end
 end
@@ -53,7 +53,7 @@ end
 initial begin
   sw_i = 10'b0;
     repeat(40) begin
-      #(8*CLK_SEMIPERIOD);
+        #(12*CLK_SEMIPERIOD);
       sw_i = $random();
     end
 end

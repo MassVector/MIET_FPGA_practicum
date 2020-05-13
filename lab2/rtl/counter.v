@@ -32,7 +32,7 @@ module counter(
       end
     else if( signal ) 
       begin
-        if ( counter > 'd99 ) 
+        if ( counter == 'd99 ) 
           begin
             hex0 <= 'd14;
             hex1 <= 'd14;

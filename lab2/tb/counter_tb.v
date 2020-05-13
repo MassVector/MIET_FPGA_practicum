@@ -3,8 +3,8 @@
 
 module counter_tb();
 
-reg  [9:0]  sw_i;
-reg  [1:0]  key_i;
+reg  [10:0] sw_i;
+reg  [2:0]  key_i;
 reg         rstn_i;
 reg         clk100_i;
 wire [9:0]  ledr_o;
@@ -27,29 +27,48 @@ initial begin
 end
 
 initial begin
-  key_i[1]<=1'b1;
+  key_i[1] <= 1'b1;
   #20
-  key_i[1]<=1'b0;
+  key_i[1] <= 1'b0;
   #20
-  key_i[1]<=1'b1;
+  key_i[1] <= 1'b1;
   #140
-  key_i[1]<=1'b0;
-  #150
-  key_i[1]<=1'b1;
+  key_i[1] <= 1'b0;
+  #180
+  key_i[1] <= 1'b1;
   
 end
 
 initial begin 
-  sw_i[9:0]<=0;
+  sw_i[9:0] <= 0;
   repeat(15) begin
     #9;
-    sw_i[9:0]<=$random()/100;
+    sw_i[9:0] <= $random()/100;
   end
 end
 
 initial begin
   key_i[0] <= 1;
-  forever #32 key_i[0]<= $random();
- end 
+  forever #32 key_i[0] <= ~key_i[0];
+end 
 
+initial begin
+  key_i[2] <= 1;
+  forever #64 key_i[2] <= ~key_i[2];
+end
+
+
+initial begin 
+  sw_i[10] <= 1'b1;
+  #100;
+  sw_i[10] <= 1'b0;
+  #64;
+  sw_i[10] <= 1'b1;
+  #300;
+  sw_i[10] <= 1'b0;
+  #330;
+  sw_i[10] <= 1'b1;
+  
+ end
+ 
 endmodule

@@ -29,10 +29,10 @@ module register(
   output reg [9:0] data_o
   );
   
-  always@( posedge clk_i or negedge rstn_i ) begin
+  always@( posedge clk_i or posedge rstn_i ) begin
     if ( rstn_i ) 
       data_o <= 0;
-    else if ( en_i) 
+    else if ( en_i ) 
       data_o <= data_i;
   end
   

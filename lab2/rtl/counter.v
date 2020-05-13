@@ -33,7 +33,7 @@
   
   always @ ( posedge clk100_i or negedge key_i[1] ) begin
     if ( !key_i[1] )
-      btn_sync[2:0] = 3'b0;
+      btn_sync[2:0] <= 3'b0;
     else begin
       btn_sync[0] <= ~key_i[0];
       btn_sync[1] <= btn_sync[0];

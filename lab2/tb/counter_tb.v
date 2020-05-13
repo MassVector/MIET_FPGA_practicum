@@ -17,12 +17,12 @@ module counter_tb(
   
   
    counter DUT
-   ( .clk100_i   ( clk100_i  ),
-     .sw_i    ( sw_i   ),
-     .key_i   ( key_i  ),
-     .ledr_o  ( ledr_o ),
-     .hex0_o  ( hex0_o ),
-     .hex1_o  ( hex1_o )
+   ( .clk100_i  ( clk100_i ),
+     .sw_i      ( sw_i     ),
+     .key_i     ( key_i    ),
+     .ledr_o    ( ledr_o   ),
+     .hex0_o    ( hex0_o   ),
+     .hex1_o    ( hex1_o   )
    );
    
    initial begin

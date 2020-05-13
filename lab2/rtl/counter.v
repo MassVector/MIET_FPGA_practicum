@@ -32,9 +32,13 @@
   assign  ledr_o = rg10;
   
   always @ ( posedge clk100_i or negedge key_i[1] ) begin
-    btn_sync[0] <= ~key_i[0];
-    btn_sync[1] <= btn_sync[0];
-    btn_sync[2] <= btn_sync[1];
+    if ( !key_i[1] )
+      btn_sync[2:0] = 3'b0;
+    else begin
+      btn_sync[0] <= ~key_i[0];
+      btn_sync[1] <= btn_sync[0];
+      btn_sync[2] <= btn_sync[1];
+    end
   end
   
   assign btn_pressed = ~btn_sync[2] & btn_sync[1];

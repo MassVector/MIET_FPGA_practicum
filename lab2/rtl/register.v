@@ -10,6 +10,9 @@ module register(
   );
   
   wire btn_was_pressed;
+  wire res;
+  
+  assign res = data_i & ( - data_i );
   
   keypress kpr(
     .btn_was_pressed_o ( btn_was_pressed )
@@ -19,7 +22,7 @@ module register(
     if ( !rstn_i ) 
       data_o <= 0;
     else if ( btn_was_pressed ) 
-      data_o <= data_i;
+      data_o <= res;
   end 
  
 endmodule

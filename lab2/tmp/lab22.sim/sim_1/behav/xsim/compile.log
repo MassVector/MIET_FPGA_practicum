@@ -1,6 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "A:/github/lab22/rtl/decoder.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module decoder
-INFO: [VRFC 10-2263] Analyzing Verilog file "A:/github/lab22/rtl/dff.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module dff
-INFO: [VRFC 10-2263] Analyzing Verilog file "A:/github/lab22/tb/dff_tb.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module dff_tb

@@ -46,14 +46,14 @@ always @( posedge clk100_i or posedge key_i[1] )
       end
 end
 
-//counter and stuff
-reg  [7:0] counter;
+//num and stuff
+reg  [7:0] num;
 reg        sw_event = 1; // dont have exersices
 
 always @(posedge clk100_i or negedge key_i[1])
   begin
-    if( ~(key_i[1]) ) counter <= 0;
-    else if ( key_p && sw_event ) counter <= counter + 1;
+    if( ~(key_i[1]) ) num <= 0;
+    else if ( key_p && sw_event ) num <= num + 1;
   end
 
 
@@ -67,7 +67,7 @@ always @(posedge clk100_i or negedge key_i[1])
   assign hex1_o = meh1;
 
   always @ (*) begin
-    case (counter[3:0])
+    case (num[3:0])
       4'h0 : meh0 = 7'b1000000;
       4'h1 : meh0 = 7'b1111001;
       4'h2 : meh0 = 7'b0100100;
@@ -76,7 +76,7 @@ always @(posedge clk100_i or negedge key_i[1])
       4'h5 : meh0 = 7'b0010010;
       4'h6 : meh0 = 7'b0000010;
       4'h7 : meh0 = 7'b1111000;
-      4'h8 : meh0 = 7'b0010000;
+      4'h8 : meh0 = 7'b0000000;
       4'h9 : meh0 = 7'b0010000;
       4'ha : meh0 = 7'b0001000;
       4'hb : meh0 = 7'b0000011;
@@ -87,7 +87,7 @@ always @(posedge clk100_i or negedge key_i[1])
       default: meh0 = 7'b1010101;
     endcase
 
-    case (counter[7:4])
+    case (num[7:4])
       4'h0 : meh1 = 7'b1000000;
       4'h1 : meh1 = 7'b1111001;
       4'h2 : meh1 = 7'b0100100;
@@ -96,7 +96,7 @@ always @(posedge clk100_i or negedge key_i[1])
       4'h5 : meh1 = 7'b0010010;
       4'h6 : meh1 = 7'b0000010;
       4'h7 : meh1 = 7'b1111000;
-      4'h8 : meh1 = 7'b0010000;
+      4'h8 : meh1 = 7'b0000000;
       4'h9 : meh1 = 7'b0010000;
       4'ha : meh1 = 7'b0001000;
       4'hb : meh1 = 7'b0000011;

@@ -2,7 +2,6 @@
 
 module Button(
   input         clk100_i,
-  input         arstn_i,
   input         en_i, 
   output        en_down_o
   );

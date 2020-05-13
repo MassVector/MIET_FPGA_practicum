@@ -8,7 +8,7 @@ localparam CLK_SEMIPERIOD = 1000 / CLK_FREQ_MHZ /2;
     
 reg            clk100_i;
 reg  [9:0]     data_i;
-reg  [1:0]     key_i;
+reg  [2:0]     key_i;
 wire [9:0]     ledr_o;
 wire [6:0]     hex0; 
 wire [6:0]     hex1; 
@@ -45,36 +45,56 @@ end
 initial begin
 #(5*CLK_SEMIPERIOD);
 key_i[1] = 1'b0;
-#(10*CLK_SEMIPERIOD);
 key_i[0] = 1'b1;
+key_i[2] = 1'b1;
+
+
 #(10*CLK_SEMIPERIOD);
 key_i[1] = ~key_i[1];
+key_i[0] = ~key_i[0];
+
 #(10*CLK_SEMIPERIOD);
 key_i[0] = ~key_i[0];
 #(10*CLK_SEMIPERIOD);
 key_i[0] = ~key_i[0];
 #(10*CLK_SEMIPERIOD);
 key_i[0] = ~key_i[0];
+
+#(10*CLK_SEMIPERIOD);
+key_i[2] = ~key_i[2];
+
 #(10*CLK_SEMIPERIOD);
 key_i[0] = ~key_i[0];
 #(10*CLK_SEMIPERIOD);
 key_i[0] = ~key_i[0];
 #(10*CLK_SEMIPERIOD);
 key_i[0] = ~key_i[0];
+
 #(10*CLK_SEMIPERIOD);
-key_i[0] = ~key_i[0];
-#(10*CLK_SEMIPERIOD);
-key_i[0] = ~key_i[0];
-#(10*CLK_SEMIPERIOD);
-key_i[0] = ~key_i[0];
-#(10*CLK_SEMIPERIOD);
-key_i[0] = ~key_i[0];
-#(10*CLK_SEMIPERIOD);
-key_i[0] = ~key_i[0];
-#(20*CLK_SEMIPERIOD);
-key_i[1] = ~key_i[1];
+key_i[2] = ~key_i[2];
 #(3*CLK_SEMIPERIOD);
-key_i[1] = ~key_i[1];
+key_i[2] = ~key_i[2];
+
+#(10*CLK_SEMIPERIOD);
+key_i[0] = ~key_i[0];
+#(10*CLK_SEMIPERIOD);
+key_i[0] = ~key_i[0];
+#(10*CLK_SEMIPERIOD);
+key_i[0] = ~key_i[0];
+#(10*CLK_SEMIPERIOD);
+key_i[0] = ~key_i[0];
+#(10*CLK_SEMIPERIOD);
+key_i[0] = ~key_i[0];
+#(10*CLK_SEMIPERIOD);
+key_i[0] = ~key_i[0];
+#(10*CLK_SEMIPERIOD);
+key_i[0] = ~key_i[0];
+#(10*CLK_SEMIPERIOD);
+key_i[0] = ~key_i[0];
+#(10*CLK_SEMIPERIOD);
+key_i[0] = ~key_i[0];
+
+
 end
 endmodule
 

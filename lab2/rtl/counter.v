@@ -60,7 +60,7 @@ always @( posedge clk100_i or negedge key_i[1] )
         else
           begin
             first_digit  <= hex_counter % 4'd10;
-            second_digit <= ( hex_counter % 8'd100 ) / 4'd10;
+            second_digit <= hex_counter / 4'd10;
           end
       end
   end

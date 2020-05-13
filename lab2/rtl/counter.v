@@ -36,7 +36,7 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
   end
 end
 
-assign switch = (sw_i[11]) ? (counter_minus) : (counter_plus);
+assign switch = ( sw_i[11] ) ? ( counter_minus ) : ( counter_plus );
 
 assign ledr_o = q;
 

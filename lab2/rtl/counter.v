@@ -56,11 +56,9 @@ always @( sw_i ) begin
     sw_event = 10'b0; 
 end
 
-reg  [7:0] switch;
-always @( * ) begin
-  assign switch = ( sw_i[11] == 0 ) ? ( counter_increment ):
-                                      ( counter_decrement );
-end
+wire  [7:0] switch;
+assign switch = ( sw_i[11] == 0 ) ? ( counter_increment ):
+                                    ( counter_decrement );
 
 assign ledr_o = sw_event;
 

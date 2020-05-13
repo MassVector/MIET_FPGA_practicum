@@ -33,7 +33,7 @@ module counter_tb(
   //RST gen
     initial begin
       key[1] <= 1'b0;
-     #(5*CLK_SEMIPERIOD+1)  key[1] <= ~key[1];
+     forever #(100*CLK_SEMIPERIOD+1)  key[1] <= ~key[1];
     end
     
   //EN gen

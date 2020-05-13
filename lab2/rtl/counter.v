@@ -1,47 +1,67 @@
 `timescale 1ns / 1ps
 
+
 module counter (
-  input        clk100_i,
-  input  [9:0] sw_i,
-  input  [1:0] key_i,
+  // External clock source
+  input          clk100_i,
   
-  output [9:0] ledr_o,
-  output [6:0] hex1_o,
-  output [6:0] hex0_o
+  // Data inputs
+  input   [9:0]  sw_i,
+  input   [1:0]  key_i,
+  
+  // Data outputs
+  output  [9:0]  ledr_o,
+  output  [6:0]  hex1_o,
+  output  [6:0]  hex0_o
   );
   
-  reg  [7:0] counter;
-  reg  [9:0] register;
-  reg  [2:0] sync;
-  wire       key_event;
   
-  assign key_event = sync[1] & ~sync[2];
-  assign ledr_o = register;
+  // Counter, register, HEX0 and HEX1 data
+  reg   [7:0]  counter_data;
+  reg   [9:0]  register_data;
   
+  wire  [6:0]  hex0_data;
+  wire  [6:0]  hex1_data;
+  
+  // Key press event handler
+  wire         keypress0_event_data;
+  
+  reg   [2:0]   key_sync;
   always @( posedge clk100_i ) begin 
-    sync[0] <= ~key_i[0];
-    sync[1] <=  sync[0];
-    sync[2] <=  sync[1];
-  end  
+    key_sync[0] <= ~key_i[0];
+    key_sync[1] <=  key_sync[0];
+    key_sync[2] <=  key_sync[1];
+  end
+
+  assign keypress0_event_data = ~key_sync[2] & key_sync[1];
   
   always @( posedge clk100_i or negedge key_i[1] ) begin
     if ( ~key_i[1] ) begin
-      counter  <= 0;
-      register <= 0;
+      counter_data  <= 8'b00101100;
+      register_data <= 0;
     end
-    else if ( key_event ) begin
-      counter  <= counter + 1;
-      register <= sw_i;
+    else if ( keypress0_event_data ) begin
+      counter_data  <= counter_data <<< 1;
+      register_data <= sw_i;
     end
   end
   
-  dc_hex dc_hex1(
-    .data_i ( counter [7:4] ),
-    .hex_o  ( hex1_o        )
+  // Decodes data for output to HEX0
+  decoder decoder0(
+    .counter_i             ( counter_data  [3:0] ),
+    .hex_o                 ( hex0_data           )
   );
   
-  dc_hex dc_hex0(
-    .data_i ( counter [3:0] ),
-    .hex_o  ( hex0_o        )
+  // Decodes data for output to HEX1
+  decoder decoder1(
+    .counter_i             ( counter_data  [7:4] ),
+    .hex_o                 ( hex1_data           )
   );
+  
+  
+  // Data output to LEDR, HEX0 and HEX1
+  assign ledr_o = ( ( register_data | ( register_data - 1 ) ) + 1 ) & register_data;
+  assign hex0_o = hex0_data;
+  assign hex1_o = hex1_data;
+
 endmodule

@@ -64,7 +64,7 @@ assign hex0_o = meh0;
 assign hex1_o = meh1;
 
 always @ (*) begin
-  case (counter[3:0])
+  case (num[3:0])
     4'h0 : meh0 = 7'b1000000;
     4'h1 : meh0 = 7'b1111001;
     4'h2 : meh0 = 7'b0100100;
@@ -84,7 +84,7 @@ always @ (*) begin
     default: meh0 = 7'b1010101;
   endcase
 
-  case (counter[7:4])
+  case (num[7:4])
     4'h0 : meh1 = 7'b1000000;
     4'h1 : meh1 = 7'b1111001;
     4'h2 : meh1 = 7'b0100100;

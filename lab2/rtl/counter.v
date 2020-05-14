@@ -11,8 +11,6 @@ module counter(
 
 reg  [9:0] sw_event;
 
-reg        reset_pressed;
-
 reg  [7:0] counter_increment;    
 reg  [7:0] counter_decrement;
 
@@ -27,29 +25,24 @@ key_debouncer bt(
 
 always @( posedge clk100_i or negedge key_i[1] ) begin
   if  ( !key_i[1] ) begin
-    reset_pressed      <= 1'b1;
+    sw_event           <= 10'b0;
     counter_increment  <= 8'h0;
     counter_decrement  <= 8'h0; 
   end
   else begin
-    reset_pressed <= 1'b0;
     if ( bt_down ) begin
+      sw_event          <= ~sw_i[9:0] & ( sw_i[9:0] + 1 );
       counter_increment <= counter_increment + 1;
       counter_decrement <= counter_decrement - 1;
     end
   end
 end
 
-always @( * ) begin
-  sw_event = ~sw_i[9:0] & ( sw_i[9:0] + 1 );
-end
-
 wire  [7:0] switch;
 assign switch = ( sw_i[11] == 0 ) ? ( counter_increment ):
                                     ( counter_decrement );
 
-assign ledr_o = ( reset_pressed == 0 ) ? ( sw_event ):
-                                         ( 10'b0    );
+assign ledr_o = sw_event;
 
 dec_hex dec0(
   .in   ( switch[3:0] ),

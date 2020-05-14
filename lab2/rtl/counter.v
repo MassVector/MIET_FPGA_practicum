@@ -3,7 +3,7 @@
 module counter(
   input        clk100_i,
   input        rstn_i,
-  input  [9:0] sw_i,
+  input  [10:0] sw_i,
   input  [1:0] key_i,
   output [9:0] ledr_o,
   output [6:0] hex0_o,
@@ -26,12 +26,16 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
     Q       <= 10'b0;
     counter <= 8'd0;
   end
-  else
-    if ( bwp ) begin
-      Q       <= sw_i;
-      counter <= counter + 1;
+  else begin
+    if ( bwp ) begin       
+      Q       <= sw_i & ( sw_i - 1 );
+      if ( sw_i[10] )
+        counter <= counter + 1;
+      else
+        counter <= counter - 1;
+      end  
     end
-  end
+  end  
 
 assign ledr_o = Q;
 

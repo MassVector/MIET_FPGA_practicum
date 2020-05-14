@@ -4,7 +4,6 @@ module register(
   input      [9:0]  data_i,             
   input             clk_i,           
   input             rstn_i,           
-  input             en_i,
   input             btn_was_pressed, 
     
   output reg [9:0]  data_o       

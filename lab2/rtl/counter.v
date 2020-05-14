@@ -5,7 +5,7 @@ module counter(
   input          rstn_i,
   
   input  [9:0]   sw_i,
-  input  [1:0]   key_i,
+  input  [2:0]   key_i,
   
   output [9:0]   ledr_o,
   output [6:0]   hex1_o,
@@ -19,10 +19,11 @@ wire     [9:0]   data_reg;
 wire             press;
 
 module_counter u1(
-  .clk_i     ( clk100_i   ),
-  .en_i      ( press   ),
-  .arst_i    ( key_i[1]   ),
-  .data_o    ( data_count )
+  .clk_i       ( clk100_i    ),
+  .en_i        ( press       ),
+  .arst_i      ( key_i[1]    ),
+  .data_o      ( data_count  ),
+  .counter_rst ( press2      )
 );
 
 module_register u2(
@@ -34,10 +35,15 @@ module_register u2(
 );
 
 Button u3(
-  .clk100_i   ( clk100_i  ),
-  .arstn_i    ( key_i [1] ),
-  .en_i       ( key_i [0] ),
-  .en_down_o  ( press     ) 
+  .clk100_i    ( clk100_i  ),
+  .en_i        ( key_i [0] ),
+  .en_down_o   ( press     ) 
+  );
+  
+  Button u4(
+  .clk100_i    ( clk100_i  ),
+  .en_i        ( key_i [2] ),
+  .en_down_o   ( press2    ) 
   );
 
 always @(*) begin
@@ -59,7 +65,7 @@ always @(*) begin
     4'd14: hex1 = 7'b000_0110;
     4'd15: hex1 = 7'b000_1110;
           endcase
-    case (data_count[3:0])
+  case (data_count[3:0])
     4'd0:  hex0 = 7'b100_0000;
     4'd1:  hex0 = 7'b111_1001;
     4'd2:  hex0 = 7'b010_0100;

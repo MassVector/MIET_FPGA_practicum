@@ -5,7 +5,7 @@ module counter#(
  (
   input        clk100_i,
   input        rstn_i,
-  input  [10:0] sw_i,
+  input  [9:0] sw_i,  //input  [10:0] sw_i,
   input  [1:0] key_i,
   output [9:0] ledr_o, 
   output [6:0] hex1_o,
@@ -13,9 +13,9 @@ module counter#(
   );
   
   reg  [7:0] counter_i;
-  reg  [2:0] counter_ind;
+ // reg  [2:0] counter_ind;
   
-  wire        but_done;
+ // wire        but_done;
   wire bwp;
   
 Debounce deb(
@@ -27,6 +27,16 @@ Debounce deb(
 
 
 always @( posedge clk100_i or negedge key_i[1] ) begin //negedge 0 to 1
+  if ( !key_i[1] ) begin
+     counter_i <= {DATA_WIDTH{1'b0}};
+  end
+  else
+      if( bwp ) begin
+        counter_i <= counter_i + 1;
+      end
+end
+
+/*always @( posedge clk100_i or negedge key_i[1] ) begin //negedge 0 to 1
   if ( !key_i[1] ) begin
      counter_i <= {DATA_WIDTH{1'b0}};
   end
@@ -56,7 +66,7 @@ always @( posedge clk100_i or negedge key_i[1] ) begin //negedge 0 to 1
   end
 end
 
-assign but_done = ( counter_ind == 3 );
+assign but_done = ( counter_ind == 3 );*/
 
   REG_TEN reg_ten(
   .clk100_i   ( clk100_i     ),

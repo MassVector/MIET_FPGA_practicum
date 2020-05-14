@@ -23,11 +23,11 @@ module counter(
  always @( posedge clk100_i or negedge key_i[1] ) begin
    if ( !key_i[1] ) begin
      save    <= 10'b0;
-     counter <= 8'd55;
+     counter <= 8'd0;
    end
    else
      if ( bwp ) begin
-       save    <= sw_i & ( sw_i - 1 );
+       save    <= sw_i;
        counter <= counter + 1;
      end
   end

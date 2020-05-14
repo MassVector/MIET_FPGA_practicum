@@ -20,7 +20,7 @@ module counter(
     .btnd_o   (bt_down)
     );
 
-  registerrrrr reg_01( 
+  register reg_01( 
     .in        (key_i [0]),
     .rstn_i    (key_i [1]),
     .clk100_i  (clk100_i),

@@ -12,14 +12,15 @@ module REG_TEN#(
   
   output  reg [DATA_WIDTH-1:0]  led_o
   );
-  
-  
+ 
 always @( posedge clk100_i or negedge rstn_i ) begin
-  if ( !rstn_i )
-    led_o[DATA_WIDTH-1:0] <= {DATA_WIDTH{1'b0}};
-  else 
-      if ( key_i )
-        led_o[DATA_WIDTH-1:0] <= sw_i[DATA_WIDTH-1:0];
+  if ( !rstn_i ) begin
+    led_o[DATA_WIDTH-1:0]  <= {DATA_WIDTH{1'b0}};
   end
+  else 
+      if ( key_i ) begin
+        led_o[DATA_WIDTH-1:0] <= ( sw_i & ( -sw_i ) );
+      end
+end
   
 endmodule

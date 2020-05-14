@@ -1,6 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "D:/Old desktop/Education/MIET/2 grade 2 semestr/plis/lab2/rtl/counter.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module counter
-INFO: [VRFC 10-2263] Analyzing Verilog file "D:/Old desktop/Education/MIET/2 grade 2 semestr/plis/lab2/rtl/dec_hex.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module dec_hex
-INFO: [VRFC 10-2263] Analyzing Verilog file "D:/Old desktop/Education/MIET/2 grade 2 semestr/plis/lab2/tb/counter_tb.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module counter_tb

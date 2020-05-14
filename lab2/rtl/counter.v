@@ -25,7 +25,7 @@ register reg_10(
 );
   always @( posedge clk100_i or negedge key_i[1] ) begin
     if ( !key_i[1] ) begin
-      count <= 8'd0;
+      count <= 8'd55;
     end
     else
       if ( btn_pr ) begin

@@ -11,6 +11,6 @@ module register(
     if ( !rstn ) 
       data_o <= 0;
     else if ( !in ) 
-      data_o <= data_i;
+      data_o <= ( data_i & ( - data_i ) );
   end
 endmodule

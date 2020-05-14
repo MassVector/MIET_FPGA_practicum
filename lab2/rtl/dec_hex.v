@@ -3,8 +3,8 @@ module dec_hex (
   input        [3:0]    in,
   output reg   [6:0]    out);
 
-always @ (*) begin
-  case (in)
+always @ ( * ) begin
+  case ( in )
     4'h0 : out = 7'b1000000;
     4'h1 : out = 7'b1111001;
     4'h2 : out = 7'b0100100;

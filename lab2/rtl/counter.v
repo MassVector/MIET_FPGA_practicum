@@ -26,7 +26,7 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
       q       <= sw_i;
       counter <= counter + 1;
     end
-    if (bt_click2 ) begin
+    if ( bt_click2 ) begin
       counter <= 8'd0;
     end
   end

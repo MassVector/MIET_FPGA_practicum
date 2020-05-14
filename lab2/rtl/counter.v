@@ -50,23 +50,23 @@ always @( posedge clk100_i or negedge key_i[1] )
 
 
 hex hex0 ( 
-  .in  ( counter[3:0] ),
-  .out ( hex0_o       )
+  .in  ( counter[3:0]    ),
+  .out ( hex0_o          )
  );
 
 hex hex1 ( 
-  .in  ( counter[7:4] ),
-  .out ( hex1_o       )
+  .in  ( counter[7:4]    ),
+  .out ( hex1_o          )
  ); 
  
 hex hex2 ( 
-  .in  ( counter[11:8] ),
-  .out ( hex2_o       )
+  .in  ( counter[11:8]   ),
+  .out ( hex2_o          )
  ); 
  
  hex hex3 ( 
-  .in  ( counter[15:12] ),
-  .out ( hex3_o       )
+   .in  ( counter[15:12] ),
+   .out ( hex3_o         )
  );
   
 endmodule

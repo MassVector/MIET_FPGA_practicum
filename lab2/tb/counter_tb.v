@@ -25,7 +25,7 @@ counter BUT(
   .clk100_i   (  clk  ),
   .sw_i       (  sw   ),
   .key_i      (  key  ),
-  .led_o      (  led  ),
+  .ledr_o     (  led  ),
   .hex0_o     (  hex0 ),
   .hex1_o     (  hex1 )
  );

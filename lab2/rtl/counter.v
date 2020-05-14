@@ -8,7 +8,7 @@ module counter(
   input    [10:0]  sw_i,
   input    [1:0]   key_i,
 
-  output   [9:0]   led_o,
+  output   [9:0]   ledr_o,
   output   [6:0]   hex0_o,
   output   [6:0]   hex1_o
     );

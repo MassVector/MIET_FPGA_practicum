@@ -41,9 +41,9 @@ module counter_tb(
      key_i[0]   = 1'b0;
      sw_i [10:0] = 11'b0000000000;
      forever begin
-        #( 2 * CLK_SEMIPERIOD ) 
+        #( 7 * CLK_SEMIPERIOD ) 
         key_i[0]  = 1'b1;
-        #( 2 * CLK_SEMIPERIOD ) 
+        #( 7 * CLK_SEMIPERIOD ) 
         key_i[0]  = 1'b0;
         sw_i[10:0] = $random%2048;
      end

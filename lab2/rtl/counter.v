@@ -24,11 +24,11 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
   else begin
     if( bt_down )
     indc <= indc + 1;
-  end
-    if ( indc==3 ) begin
-      indc <= 0;
-      cntup  <= cntup + 1;  
-      cntdown  <= cntdown - 1;
+      if ( indc==3 ) begin
+        indc <= 0;
+        cntup  <= cntup + 1;  
+        cntdown  <= cntdown - 1;
+      end
   end
 end
 

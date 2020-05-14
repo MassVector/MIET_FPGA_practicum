@@ -17,6 +17,9 @@ module tb_counter;
 
   // counter outputs
   wire  [9:0]  ledr;
+  
+  wire  [6:0]  hex3;
+  wire  [6:0]  hex2;
   wire  [6:0]  hex1;
   wire  [6:0]  hex0;
 
@@ -50,12 +53,11 @@ module tb_counter;
       #( CLK_PERIOD * 2) key[0] = 0;
     end
     
-    
     key[1] = 0;
     #CLK_PERIOD;
     key[1] = 1;
     
-    repeat ( 4 ) begin
+    repeat ( 20 ) begin
       sw = $random();
       #( CLK_PERIOD * 2) key[0] = 1;
       #( CLK_PERIOD * 2) key[0] = 0;
@@ -71,6 +73,8 @@ module tb_counter;
     .key_i                   ( key      [1:0] ),
 
     .ledr_o                  ( ledr     [9:0] ),
+    .hex3_o                  ( hex3     [6:0] ),
+    .hex2_o                  ( hex2     [6:0] ),
     .hex1_o                  ( hex1     [6:0] ),
     .hex0_o                  ( hex0     [6:0] )
     );

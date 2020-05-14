@@ -17,9 +17,9 @@ reg  [7:0] cntup;
 
 always @( posedge clk100_i or negedge key_i[1] ) begin
   if( !key_i[1] ) begin
-  cntdown <= 8'h0;
-  cntup <= 8'h0;
-  indc <= 8'b0;
+    cntdown <= 8'h0;
+    cntup <= 8'h0;
+    indc <= 8'b0;
   end
   else begin
     if( bt_down )
@@ -35,7 +35,7 @@ end
 assign ind_out = ( sw_i[11] ) ? ( cntdown ) : ( cntup );
 
 reg_to_ledr secmod
-( .sw_i       ( sw_i      ),
+( .sw_i       ( sw_i[9:0] ),
   .bt_down    ( bt_down   ),
   .rst_i      ( key_i[1]  ),
   .ledr_o     ( ledr_o    ),

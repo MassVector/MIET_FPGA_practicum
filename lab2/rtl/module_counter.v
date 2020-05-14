@@ -20,7 +20,7 @@ always @( posedge clk_i or negedge arst_i ) begin
   else if ( counter_rst )
     data = 8'b0010_1100;
   else if ( en_i )
-    data[7:0] = { data[0:6] , data[7] };
+    data[7:0] = { data[6:0] , data[7] };
 end
 
 assign data_o = data;

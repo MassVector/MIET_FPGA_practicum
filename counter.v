@@ -46,12 +46,12 @@ always @( posedge clk100_i or negedge press_1 ) begin
     end
 end
 
-    always @( negedge press_1 or posedge button[0] ) begin
+    always @( negedge press_1 or posedge clk100_i ) begin
   if ( !press_1 ) begin 
     data    <=  10'b0;
   end
   else  
-      if ( button[0] ) begin
+      if ( press_0 ) begin
       data    <=  sw_i;
     end
 end

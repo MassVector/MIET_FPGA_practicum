@@ -32,7 +32,7 @@ module counter(
     begin
       if ( rstn_i == 1'b0 )
         led <= 10'd0;
-      else if ( key )
+      else if ( counter_for_key == 2'b11 )
         led <= sw_i;
     end
     
@@ -47,7 +47,7 @@ module counter(
         counter_for_key = counter_for_key + 1;
       else if ( counter_for_key == 2'b11 )
         begin
-          counter_i = counter_i << 1;
+          counter_i[7:0] <= {counter_i[6:0], counter_i[7]};
           counter_for_key <= 8'd0;
         end
     end

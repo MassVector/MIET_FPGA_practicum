@@ -42,6 +42,13 @@ initial begin
   #100 btn[0]=1'b0;
   #100 btn[2]=1'b0;
   #100 btn[2]=1'b1;
+  #100 btn[0]=1'b1;
+  #100 btn[0]=1'b0;
+  #1   btn[2]=1'b0;
+  #100 btn[2]=1'b1;
+  #100 btn[0]=1'b1;
+  #100 btn[2]=1'b0;
+  #100 btn[0]=1'b0;
 end
 
 initial begin

@@ -13,8 +13,6 @@ module counter (
 
 reg  [9:0]  data;
 reg  [15:0] counter;
-wire        key0_pressed;
-wire        key2_pressed;
 reg         switch;
 
 always @( posedge clk100_i or negedge key_i[1] ) begin
@@ -24,10 +22,10 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
     switch  <= 1'b0;
   end
   else begin
-    if( key0_pressed && !key2_pressed )
-      switch <= key0_pressed;
+    if( !key_i[0] && key_i[2] )
+      switch <= 1'b1;
     if( switch ) begin
-      if( key2_pressed && !key0_pressed ) begin
+      if( !key_i[2] ) begin
         data    <= sw_i;
         counter <= counter + 1;
         switch  <= 1'b0;
@@ -39,20 +37,6 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
 end
 
 assign ledr_o = data;
-
-debounce key0(
-  .btn_i   ( !key_i[0]    ),
-  .btn_o   ( key0_pressed ),
-  .rst_i   ( key_i[1]     ),
-  .clk_i   ( clk100_i     )
-);
-
-debounce key2(
-  .btn_i   ( !key_i[2]    ),
-  .btn_o   ( key2_pressed ),
-  .rst_i   ( key_i[1]     ),
-  .clk_i   ( clk100_i     )
-);
 
 dec_hex HEX3 (
   .in ( counter [15:12] ),

@@ -3,9 +3,7 @@
 module ccccounter(
   input        clk100_i,
   input        rst_i,
-  input        bt_down,
-  output [6:0] hex1_o,
-  output [6:0] hex0_o);
+  input        bt_down);
 
 reg  [7:0] counter;
 

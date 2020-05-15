@@ -24,10 +24,10 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
     switch  <= 1'b0;
   end
   else begin
-    if( key0_pressed )
+    if( key0_pressed && !key2_pressed )
       switch <= 1'b1;
     if( switch ) begin
-      if( key2_pressed ) begin
+      if( key2_pressed && !key0_pressed ) begin
         data    <= sw_i;
         counter <= counter + 1;
         switch  <= 1'b0;

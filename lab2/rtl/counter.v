@@ -14,32 +14,30 @@ reg  [1:0] indc;
 wire [7:0] ind_out;
 reg  [7:0] cntdown;
 reg  [7:0] cntup;
+reg  [9:0] q;
 
 always @( posedge clk100_i or negedge key_i[1] ) begin
   if( !key_i[1] ) begin
     cntdown <= 8'h0;
-    cntup <= 8'h0;
-    indc <= 8'b0;
+    cntup   <= 8'h0;
+    indc    <= 8'b0;
+    q       <= 10'b0;
   end
   else begin
-    if( bt_down )
+    if( bt_down ) begin
       indc <= indc + 1;
-    if( indc == 3 ) begin
-      indc <= 0;
-      cntup <= cntup + 1;
-      cntdown <= cntdown - 1;
+      if( indc == 3 ) begin
+        indc    <= 0;
+        cntup   <= cntup + 1;
+        cntdown <= cntdown - 1;
+        q       <= sw_i[9:0];
+      end
     end
   end
 end
 
 assign ind_out = ( sw_i[11] ) ? ( cntdown ) : ( cntup );
-
-reg_to_ledr secmod
-( .sw_i       ( sw_i[9:0] ),
-  .bt_down    ( bt_down   ),
-  .rst_i      ( key_i[1]  ),
-  .ledr_o     ( ledr_o    ),
-  .clk100_i   ( clk100_i  ));
+assign ledr_o  = q; 
 
 button_fix butt0
 ( .key_i      ( !key_i[0] ),

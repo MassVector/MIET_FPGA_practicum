@@ -60,9 +60,9 @@
   
   always @ ( * ) begin
     if ( sw_i[11] == 0 )
-      counter <= counter_p;
+      counter = counter_p;
     else
-      counter <= counter_m;
+      counter = counter_m;
   end
   
   always @ ( * ) begin

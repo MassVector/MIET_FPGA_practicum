@@ -14,24 +14,32 @@ module counter (
 reg  [9:0]  data;
 reg  [15:0] counter;
 reg         switch;
+reg         checkprev;
 
 always @( posedge clk100_i or negedge key_i[1] ) begin
   if( !key_i[1] ) begin
-    data    <= 10'b0;
-    counter <= 16'h0;
-    switch  <= 1'b0;
+    data      <= 10'b0;
+    counter   <= 16'h0;
+    switch    <= 1'b0;
+    checkprev <= 1'b0;
   end
   else begin
-    if( !key_i[0] && key_i[2] )
+    if( !key_i[0] && key_i[2] && !checkprev ) begin
       switch <= 1'b1;
-    if( switch ) begin
-      if( !key_i[2] ) begin
-        data    <= sw_i;
-        counter <= counter + 1;
-        switch  <= 1'b0;
+    end
+    else begin
+      if( key_i[0] )
+        checkprev <= 1'b0;
+      if( switch ) begin
+        if( !key_i[2] ) begin
+          data      <= sw_i;
+          counter   <= counter + 1;
+          switch    <= 1'b0;
+          checkprev <= 1'b1;
+        end
+        else
+          switch  <= 1'b0;
       end
-      else
-        switch  <= 1'b0;
     end
   end
 end

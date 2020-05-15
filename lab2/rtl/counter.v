@@ -24,11 +24,11 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
   else begin
     if( bt_down )
     indc <= indc + 1;
-      if ( indc==3 ) begin
-        indc <= 0;
-        cntup  <= cntup + 1;  
-        cntdown  <= cntdown - 1;
-      end
+    if( indc == 3 ) begin
+      indc <= 0;
+      cntup <= cntup + 1;  
+      cntdown <= cntdown - 1;
+    end
   end
 end
 
@@ -43,9 +43,7 @@ reg_to_ledr secmod
 
 ccccounter thirdmod
 ( .bt_down    ( bt_down   ),
-  .hex1_o     ( hex1_o    ),
   .rst_i      ( key_i[1]  ),
-  .hex0_o     ( hex0_o    ),
   .clk100_i   ( clk100_i  ));
 
 button_fix butt0

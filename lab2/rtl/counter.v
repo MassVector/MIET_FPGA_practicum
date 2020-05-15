@@ -31,7 +31,7 @@ always @( posedge clk100_i or negedge key_i[1] ) begin
       if( key_i[0] )
         checkprev <= 1'b0;
       if( switch ) begin
-        if( !key_i[2] ) begin
+        if( !key_i[2] && !key_i[0] ) begin
           data      <= sw_i;
           counter   <= counter + 1;
           switch    <= 1'b0;

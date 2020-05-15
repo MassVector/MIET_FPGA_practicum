@@ -16,7 +16,7 @@ module counter (
   wire       key_event;
   
   assign key_event = sync[1] & ~sync[2];
-  assign ledr_o = ( ( register | ( register - 1 ) ) + 1 ) & register;
+  assign ledr_o = register;
   
   always @( posedge clk100_i ) begin 
     sync[0] <= ~key_i[0];
@@ -26,11 +26,11 @@ module counter (
   
   always @( posedge clk100_i or negedge key_i[1] ) begin
     if ( ~key_i[1] ) begin
-      counter  <=  8'b00101100;
+      counter  <= 0;
       register <= 0;
     end
     else if ( key_event ) begin
-      counter  <= counter <<< 1;
+      counter  <= counter + 1;
       register <= sw_i;
     end
   end

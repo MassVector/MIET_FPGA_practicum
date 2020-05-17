@@ -30,7 +30,7 @@ module counter (
       register <= 0;
     end
     else if ( key_event ) begin
-      counter  <= counter << 1;
+      counter  <= { counter[6:0] , counter[7] };
       register <= sw_i;
     end
   end
